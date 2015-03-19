@@ -1,4 +1,0 @@
-//Something blue!
-
-
-#include <somethingYellow>
