@@ -7,28 +7,30 @@
 #define PLAYER_H
 
 #include <string>
-#include <Card.h>
+//#include "Card.h"
+
+using namespace std;
 
 class Player {
 
   public:
-    Player();
+    Player( string, int );
     int getScore();
-    void setScore( int );
-    int getPlayerTurn();
+    int getTurn();
     void setPlayerTurn( int );
-    void PlayerTurn();  // gives player options when it is their turn
+    int getCoins();
+    void addCoins( int );
+    void removeCoins( int );
+
 
 
   private:
     string name;
     int score;
-    string wonder;
-    string ltplayer;
-    string rtplayer;
-    int Age;
+    int playerturn;
     int coins;
-    int finalscore;
-    vector<Card> resources;
+    vector<int> resources; // Card instead of int
+    int calcScore();
+   
 };
 #endif
