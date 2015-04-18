@@ -1,24 +1,31 @@
 #ifndef SEVENWONDERS_H
 #define SEVENWONDERS_H
 
+#include "player.h"
+#include "CardDeck.h"
+
 class SevenWonders{
 
 	public:
 		SevenWonders();
 
 		void newGame(int xPlayers);
-		void nextPlayer();
-		void changeNumPlayers(int newNum);
-		void resolveTurn();
-		void advanceAge();
-		
+		bool nextPlayer();
+		void setNumPlayers(int newNum);
+		int getPlayerTurn();
+		int getAge();
+		//void resolveTurn();
+		bool advanceAge();
 
 	private:
 		int Age;
 		int numPlayers;
 		int PlayerTurn;
 		Player Players[7];
-		Deck * DeckPtr;
+		CardDeck * DeckPtr;
+		CardDeck Age1Deck;
+		CardDeck Age2Deck;
+		CardDeck Age3Deck;
 
 
 };
