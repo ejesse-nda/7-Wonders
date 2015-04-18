@@ -34,6 +34,8 @@ class CardDeck {
 		//Treat the deck like a blackjack hand, and return the number of points
 		int getBlackJackValue();
 
+		void clear();
+
 	private:
 		deque<int> Deck;
 

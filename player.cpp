@@ -47,3 +47,19 @@ void Player::removeCoins( int val ) {
     cout << "Sorry, there are not enough coins!" << endl;
   }
 }
+
+void Player::dealHand(CardDeck &AgeDeck){
+cout << "here2" << endl;
+	AgeDeck.Deal(Hand,7);
+
+}
+
+CardDeck Player::getHand(){
+	return Hand;
+}
+
+void Player::clearHand();
+
+	Hand.clear();
+
+}

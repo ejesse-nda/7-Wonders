@@ -91,14 +91,18 @@ ostream& operator<<(ostream &output, const CardDeck &A){
 //Adds all cards from top of newDeck to bottom of this Deck.
 void CardDeck::addToDeck(const CardDeck &newDeck, int numCards){
 
+
 	//For loop iterator
 	deque<int>::const_iterator i;
+
 
 	//Stop adding cards at the specified number of cards
 	deque<int>::const_iterator stop=newDeck.Deck.begin()+numCards;
 
+
 	//If trying to add more cards than in newDeck, just reset stop to end of deck.
 	if (numCards > newDeck.Deck.size()) stop = newDeck.Deck.end();
+
 
 	//Add the new cards to the bottom of this Deck
 	for (i=newDeck.Deck.begin(); i!=stop; ++i) Deck.push_back(*i);
@@ -108,10 +112,10 @@ void CardDeck::addToDeck(const CardDeck &newDeck, int numCards){
 
 //Deals cards from this deck
 void CardDeck::Deal(CardDeck &Hand, int numCards){
-
 	int i;
 	//Add cards to the hand "deck"
 	Hand.addToDeck(*this, numCards);
+
 	//Remove the cards added from front, or top of the deck
 	for(i=0; i<numCards; i++) Deck.pop_front();
 
@@ -141,5 +145,10 @@ int CardDeck::getBlackJackValue(){
 
 	//Return claculated value
 	return value;
+
+}
+
+void CardDeck::clear(){
+	Deck.clear()
 
 }

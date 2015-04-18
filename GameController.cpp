@@ -7,7 +7,7 @@ int main(){
 	bool exit=false;
 	bool nextAge;
 	int players=0;
-char newgame;
+	char newgame, move;
 
 	while (players>7 || players<=0){
 		cout << "Choose number of players: ";
@@ -16,11 +16,33 @@ char newgame;
 	SevenWonders Game;
 	Game.newGame(players);
 
+	exit = Game.advanceAge();
 	cout << "It is Age " << Game.getAge() << "." << endl;
 	while (!exit){
 
 		cout << "It is player " << Game.getPlayerTurn() << "'s turn." << endl;
-		nextAge = Game.nextPlayer();
+		cout << "Hand: " << Game.getPlayerHand(Game.getPlayerTurn()) << endl;
+
+		cout << "Move (p/c/w/o/n): ";
+		cin >> move;
+		if (move == 'p'){
+			cout << "Play Card" << endl;
+		} else if (move == 'c'){
+			cout << "Get Coins" << endl;
+		} else if (move == 'w'){
+			cout << "Make Wonder" << endl;
+		} else if (move == 'o'){
+			cout << "Options" << endl;
+		} else if (move == 'e'){
+			cout << "Exiting..." << endl;
+			exit = true;
+		} else if (move == 'n'){
+			cout << "Next Player..." << endl;
+			nextAge = Game.nextPlayer();
+		} else {
+			cout << "Invalid Move" << endl;
+		}
+
 		if (nextAge) {
 			exit = Game.advanceAge();
 			if (exit){
@@ -34,6 +56,7 @@ char newgame;
 						cin >> players;
 					}
 					Game.newGame(players);
+					exit = Game.advanceAge();
 					cout << "It is Age " << Game.getAge() << "." << endl;
 				}
 			} else cout << "It is Age " << Game.getAge() << "." << endl;

@@ -23,6 +23,9 @@ class Player {
 		int getCoins();
 		void addCoins( int );
 		void removeCoins( int );
+		void dealHand(CardDeck &AgeDeck);
+		CardDeck getHand();
+		void clearHand(); //temp
 
 	private:
 		string name;

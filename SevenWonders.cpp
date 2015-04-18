@@ -1,14 +1,21 @@
 #include "SevenWonders.h"
+#include "player.h"
+#include "CardDeck.h"
 
 SevenWonders::SevenWonders(){
 
-	Age = 1;
+	Age = 0;
 	PlayerTurn = 1;
 	numPlayers = 4;
 
-	//DeckPtr = new Deck[numPlayers];
+	CardDeck newDeck(7*numPlayers);
 
-	//Deck 
+	newDeck.shuffle();
+	AgeDeck[0].addToDeck(newDeck, 7*numPlayers);
+	newDeck.shuffle();
+	AgeDeck[1].addToDeck(newDeck, 7*numPlayers);
+	newDeck.shuffle();
+	AgeDeck[2].addToDeck(newDeck, 7*numPlayers);
 
 	//DeckPtr->init(Age, numPlayers);
 
@@ -16,7 +23,7 @@ SevenWonders::SevenWonders(){
 
 void SevenWonders::newGame(int xPlayers){
 
-	Age = 1;
+	Age = 0;
 	PlayerTurn = 1;
 	numPlayers = xPlayers;
 
@@ -51,9 +58,20 @@ int SevenWonders::getAge(){
 bool SevenWonders::advanceAge(){
 	PlayerTurn = 1;
 	Age++;
+	if (Age>0 && Age<=3){
+		for (int i=0; i<numPlayers; i++){
+cout << "here" << endl;
+			Players[i].dealHand(AgeDeck[Age]);
+			cout << "To deal: " << AgeDeck[Age].getSize() << endl;
+		}
+	}
+
 	return (Age>3);
-	//delete DeckPtr;
-	//DeckPtr = new Deck;
-	//DeckPtr->init(Age, numPlayers);
+
+}
+
+CardDeck SevenWonders::getPlayerHand(int i){
+
+	return Players[i-1].getHand();
 
 }

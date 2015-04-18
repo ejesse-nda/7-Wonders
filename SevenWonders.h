@@ -16,6 +16,7 @@ class SevenWonders{
 		int getAge();
 		//void resolveTurn();
 		bool advanceAge();
+		CardDeck getPlayerHand(int i);
 
 	private:
 		int Age;
@@ -23,10 +24,7 @@ class SevenWonders{
 		int PlayerTurn;
 		Player Players[7];
 		CardDeck * DeckPtr;
-		CardDeck Age1Deck;
-		CardDeck Age2Deck;
-		CardDeck Age3Deck;
-
+		CardDeck AgeDeck[3];
 
 };
 
