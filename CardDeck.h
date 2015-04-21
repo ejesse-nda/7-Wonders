@@ -27,9 +27,11 @@ class CardDeck {
 		//Copy cards from another deck to this deck.
 		//The cards are not removed from the other deck.
 		void addToDeck(const CardDeck &newDeck, int numCards);
+		void addToDeckS(deque<int> &newDeck, int cardPos);
 
 		//Deal cards from this deck to another deck. Cards are removed from this deck.
 		void Deal(CardDeck &Hand, int numCards);
+		void DealS(CardDeck &Hand, int cardNum);
 
 		//Treat the deck like a blackjack hand, and return the number of points
 		int getBlackJackValue();

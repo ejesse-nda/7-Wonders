@@ -110,14 +110,39 @@ void CardDeck::addToDeck(const CardDeck &newDeck, int numCards){
 }
 
 
+void CardDeck::addToDeckS(deque<int> &newDeck, int cardPos){
+
+	Deck.push_back(newDeck[cardPos]);
+
+}
+
+
 //Deals cards from this deck
 void CardDeck::Deal(CardDeck &Hand, int numCards){
 	int i;
+
 	//Add cards to the hand "deck"
 	Hand.addToDeck(*this, numCards);
 
 	//Remove the cards added from front, or top of the deck
 	for(i=0; i<numCards; i++) Deck.pop_front();
+
+}
+
+
+void CardDeck::DealS(CardDeck &Hand, int cardNum){
+	int i, position=-1;
+
+	for (i=0; i<Deck.size(); i++) if (Deck[i]==cardNum) position=i;
+
+
+	if (position > -1){
+		//Add cards to the hand "deck"
+		Hand.addToDeckS(Deck, position);
+
+		//Remove the cards added from front, or top of the deck
+		Deck.erase(Deck.begin()+position);
+	}
 
 }
 
@@ -149,6 +174,6 @@ int CardDeck::getBlackJackValue(){
 }
 
 void CardDeck::clear(){
-	Deck.clear()
+	Deck.clear();
 
 }

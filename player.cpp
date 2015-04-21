@@ -15,51 +15,69 @@ using namespace std;
 
 // non-default constructor
 Player::Player( string n, int t ) {
-  name = n;
-  score = 0;
-// playerturn = t;
-  coins = 3;
-
-
-
+	name = n;
+	score = 0;
+//	playerturn = t;
+	coins = 3;
 }
 
+
 int Player::getScore() {
-  return score;
+	return score;
 }
 
 /*int Player::getTurn() {
-  return playerturn;
+	return playerturn;
 }// */
 
 int Player::getCoins() {
-  return coins;
+	return coins;
 }
 
 void Player::addCoins( int val ) {
-  coins += val;
+	coins += val;
 }
 
 void Player::removeCoins( int val ) {
-  if ( val <= coins ) {
-    coins -= val;
-  } else {
-    cout << "Sorry, there are not enough coins!" << endl;
-  }
+	if ( val <= coins ) {
+		coins -= val;
+	} else {
+		cout << "Sorry, there are not enough coins!" << endl;
+	}
 }
 
 void Player::dealHand(CardDeck &AgeDeck){
-cout << "here2" << endl;
+
 	AgeDeck.Deal(Hand,7);
 
 }
 
 CardDeck Player::getHand(){
+
 	return Hand;
+
 }
 
-void Player::clearHand();
+void Player::clearHand(){
 
 	Hand.clear();
+
+}
+
+void Player::dealPlayed(int cardNum){
+
+	Hand.DealS(Played,cardNum);
+
+}
+
+CardDeck Player::getPlayed(){
+
+	return Played;
+
+}
+
+void Player::clearPlayed(){
+
+	Played.clear();
 
 }

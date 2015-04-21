@@ -60,9 +60,7 @@ bool SevenWonders::advanceAge(){
 	Age++;
 	if (Age>0 && Age<=3){
 		for (int i=0; i<numPlayers; i++){
-cout << "here" << endl;
-			Players[i].dealHand(AgeDeck[Age]);
-			cout << "To deal: " << AgeDeck[Age].getSize() << endl;
+			Players[i].dealHand(AgeDeck[Age-1]);
 		}
 	}
 
@@ -70,8 +68,23 @@ cout << "here" << endl;
 
 }
 
+
 CardDeck SevenWonders::getPlayerHand(int i){
 
 	return Players[i-1].getHand();
+
+}
+
+
+CardDeck SevenWonders::getPlayerPlayed(int i){
+
+	return Players[i-1].getPlayed();
+
+}
+
+
+void SevenWonders::playCard(int cardNum){
+
+	Players[PlayerTurn-1].dealPlayed(cardNum);
 
 }

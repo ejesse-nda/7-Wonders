@@ -6,7 +6,7 @@ int main(){
 
 	bool exit=false;
 	bool nextAge;
-	int players=0;
+	int players=0, cardNum;
 	char newgame, move;
 
 	while (players>7 || players<=0){
@@ -26,7 +26,12 @@ int main(){
 		cout << "Move (p/c/w/o/n): ";
 		cin >> move;
 		if (move == 'p'){
-			cout << "Play Card" << endl;
+			cin >> cardNum;
+
+			Game.playCard(cardNum);
+			cout << "In  Hand: " << Game.getPlayerHand(Game.getPlayerTurn()) << endl;
+			cout << "In front: " << Game.getPlayerPlayed(Game.getPlayerTurn()) << endl;
+
 		} else if (move == 'c'){
 			cout << "Get Coins" << endl;
 		} else if (move == 'w'){

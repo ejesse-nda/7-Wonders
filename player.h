@@ -20,12 +20,18 @@ class Player {
 		int getScore();
 //		int getTurn();
 //		void setPlayerTurn( int );
+
 		int getCoins();
 		void addCoins( int );
 		void removeCoins( int );
+
 		void dealHand(CardDeck &AgeDeck);
 		CardDeck getHand();
-		void clearHand(); //temp
+		void clearHand();
+		void dealPlayed(int cardNum);
+		CardDeck getPlayed();
+		void clearPlayed();
+
 
 	private:
 		string name;
