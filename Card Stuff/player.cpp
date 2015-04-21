@@ -10,9 +10,8 @@
 #include <cstdlib>	// srand
 #include <ctime>	// time to initialize rand
 #include "player.h"
-#include "CardDeck.h"
+#include "Deck.h"
 #include "wonder.h"
-//#include "Card.h"
 
 using namespace std;
 
@@ -51,13 +50,13 @@ void Player::removeCoins( int val ) {
 	}
 }
 
-void Player::dealHand(CardDeck &AgeDeck){
+void Player::dealHand(Deck &AgeDeck){
 
 	AgeDeck.Deal(Hand,7);
 
 }
 
-CardDeck Player::getHand(){
+Deck Player::getHand(){
 
 	return Hand;
 
@@ -75,7 +74,7 @@ void Player::dealPlayed(int cardNum){
 
 }
 
-CardDeck Player::getPlayed(){
+Deck Player::getPlayed(){
 
 	return Played;
 

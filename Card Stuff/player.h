@@ -8,8 +8,7 @@
 
 #include <string>
 #include <vector>
-#include "CardDeck.h"
-//#include "Card.h"
+#include "Hand.h"
 
 using namespace std;
 
@@ -25,11 +24,11 @@ class Player {
 		void addCoins( int );
 		void removeCoins( int );
 
-		void dealHand(CardDeck &AgeDeck);
-		CardDeck getHand();
+		void dealHand(Hand &AgeDeck);
+		Hand getHand();
 		void clearHand();
 		void dealPlayed(int cardNum);
-		CardDeck getPlayed();
+		Hand getPlayed();
 		void clearPlayed();
 
 
@@ -42,8 +41,8 @@ class Player {
 		int calcScore();
 		//Wonder wond;
 
-		CardDeck Played;
-		CardDeck Hand;
+		Hand Played;
+		Hand Hand;
 
 };
 #endif

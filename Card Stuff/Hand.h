@@ -1,38 +1,39 @@
-/*Hand.cpp*/
+/*Hand.h*/
+#ifndef HAND_H
+#define HAND_H
+
 #include <iostream>
-#include "Card.cpp"
+#include "Card.h"
 using namespace std;
 
-template <typename T>
-class Hand: public Card {
+class Hand : public Card {
 public:
 	Hand(int);
-	int selectCard(int);
-	int discardCard(int);
+	int selectCard(int); //when user selects a card to use
+	int discardCard(int); //discard specified card
 private:
 	int handID;
 };
 
-template <typename T>
-Hand<T>:Hand(int ID) {
+Hand::Hand(int ID) { //tags the hand as the hand identifier
 	handID = ID;
 
-	return;
+	for (int i = 0; i < 10; ++i) {
+		cards.push_back(i);
+	}
 }
 
-template <typename T>
-void Hand<T>::selectCard(int n) {
+int Hand::selectCard(int n) {
 	int ID = discardCard(n);
 
 	return ID;
 }
 
-int Hand<T>::discardCard(int n) {
+int Hand::discardCard(int n) {
 	int ID = cards[n];
-	for (i = n; i < cards.size; ++i) {
-		cards[i] = cards[i + 1];
-	}
-	cards.pop_back();
+	cards.erase(cards.begin() + n);
 
 	return ID;
 }
+
+#endif

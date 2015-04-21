@@ -2,28 +2,36 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "Hand.cpp"
-#include "Deck.cpp"
+#include <limits>
+#include "Hand.h"
+#include "Deck.h"
 using namespace std;
 
 int main() {
 	int ID;
-	Deck deck, discard;
-	Hand hand1, hand2;
+	Deck deck(10), discard;
+	Hand hand1(1), hand2(2);
+	string line;
 
-	//extractor
-	string database = "database.txt"
-	ifstream inFile;
+	cout << "TEST1" << endl;
 
-	inFile.open(database.c_str());
+	/*extractor*/
+	fstream inFile("database.txt");
 
-	ID = hand1.selectCard(1);
+	ID = hand1.selectCard(5);
+	discard.addCard(ID);
 
-	if(ID == 0) {
-		//Add points to victory
+	hand1.displayCard();
+	discard.displayCard();
+
+	inFile.seekg(ios::beg);
+	for (int i = 0; i < ID; ++i) {
+		inFile.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 
-	inFile.close();
+	inFile >> line;
+
+	cout << line << endl;
 
 	return 0;
 }

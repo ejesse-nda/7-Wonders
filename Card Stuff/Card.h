@@ -1,35 +1,23 @@
-/*Card.cpp*/
+/*Card.h*/
+//#ifndef CARD_H
+//#define CARD_H
+
 #include <iostream>
 #include <vector>
 using namespace std;
 
-template <typename T>
 class Card {
 public:
-	Card();
-	void addCard(int);
-	int getSize();
-	void displayCards();
+	void addCard(int); //adds card to cards vector
+	int getSize(); //returns size of cards vector
+	void displayCard(); //for test purposes
+	string getInfo(); //returns the card description
 protected:
-	vector<T> cards;
+	vector<int> cards;
 };
 
-/*ostream &operator << (ostream &out, CardDeck d) { //overloaded stream operator that prints deck
-	for (deque<int>::iterator it = d.deck.begin(); it != d.deck.end(); it++) {
-		if (it < d.deck.end() - 1) {
-			out << (*it % 13) + 1 << ", "; //modulo shows correct card value
-		}
-		else {
-			out << (*it % 13) + 1 << endl;
-		}
-	}
-
-	return out;
-}*/
-
-template <typename T>
-void Hand<T>::addCard(int ID) {
-	cards.intsert(cards.begin(), ID);
+void Card::addCard(int ID) {
+	cards.insert(cards.begin(), ID);
 
 	return;
 }
@@ -39,3 +27,13 @@ int Card::getSize() {
 
 	return cards.size();
 }
+
+void Card::displayCard() {
+	for (int i = 0; i < cards.size(); ++i) {
+		cout << cards[i] << ", ";
+	}
+
+	cout<< endl;
+}
+
+//#endif

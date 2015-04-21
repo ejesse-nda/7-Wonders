@@ -1,38 +1,40 @@
-/*Deck.cpp*/
+/*Deck.h*/
+#ifndef DECK_H
+#define DECK_H
+
 #include <iostream>
 #include <algorithm>
-#include "Card.cpp"
+#include "Card.h"
 using namespace std;
 
-template <typename T>
-class Deck public Card{
+class Deck : public Card{
 public:
-	Deck(/*ifstream&*/);
-	void dealCard();
+	Deck();
+	Deck(int);
+	int dealCard();
 	void shuffle();
 };
 
-template <typename T>
-void Deck<T>::Deck(/*ifsteam& inFile*/) {
-	for (int i = 0; i < 4; ++i) {
+Deck::Deck() {}
+
+Deck::Deck(int n) {
+	for (int i = 0; i < n; ++i) {
 		addCard(i);
 	}
 	shuffle();
-
-	return;
 }
 
-template <typename T>
-void Deck<T>::dealCard() {
-	int ID = cards[cards.size() - 1];
+int Deck::dealCard() {
+	int ID = *cards.end();
 	cards.pop_back();
 
 	return ID;
 }
 
-template <typename T>
-void Deck<T>::shuffle() {
+void Deck::shuffle() {
 	random_shuffle(cards.begin(), cards.end());
 
 	return;
 }
+
+#endif

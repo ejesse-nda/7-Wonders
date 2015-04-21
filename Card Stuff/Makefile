@@ -1,7 +1,10 @@
-all: Card
+all: interpreter
 
-Card: Card.o Hand.o Deck.o 
-	g++ Card.o Hand.o Deck.o -o Card
+interpreter: interpreter.o Card.o Hand.o Deck.o 
+	g++ interpreter.cpp Card.h Hand.h Deck.h -o interpreter
+
+interpreter.o: interpreter.cpp
+	g++ -c interpreter.cpp
 
 Card.o: Card.h
 	g++ -c Card.h
@@ -13,4 +16,4 @@ Hand.o: Hand.h
 	g++ -c Hand.h
 
 clean:
-	rm *.o Card
+	rm *.o interpreter
