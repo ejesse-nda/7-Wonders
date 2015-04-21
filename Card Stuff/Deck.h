@@ -1,8 +1,5 @@
 /*Deck.cpp*/
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
 #include <algorithm>
 #include "Card.cpp"
 using namespace std;

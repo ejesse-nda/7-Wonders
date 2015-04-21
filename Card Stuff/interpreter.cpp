@@ -1,6 +1,7 @@
 /*interpreter*/
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "Hand.cpp"
 #include "Deck.cpp"
 using namespace std;

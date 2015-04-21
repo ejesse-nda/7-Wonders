@@ -1,6 +1,5 @@
 /*Hand.cpp*/
 #include <iostream>
-#include <vector>
 #include "Card.cpp"
 using namespace std;
 
@@ -8,10 +7,8 @@ template <typename T>
 class Hand: public Card {
 public:
 	Hand(int);
-	
 	int selectCard(int);
-	discardCard(int);
-	increasePoints();
+	int discardCard(int);
 private:
 	int handID;
 };
