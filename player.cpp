@@ -7,18 +7,23 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>	// srand
+#include <ctime>	// time to initialize rand
 #include "player.h"
 #include "CardDeck.h"
+#include "wonder.h"
 //#include "Card.h"
 
 using namespace std;
 
 // non-default constructor
-Player::Player( string n, int t ) {
+Player::Player( string n, int t, int w ) {
+        srand( time(0) );
 	name = n;
 	score = 0;
 //	playerturn = t;
 	coins = 3;
+        //Wonder( w, t );
 }
 
 

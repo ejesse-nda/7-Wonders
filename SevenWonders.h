@@ -7,9 +7,9 @@
 class SevenWonders{
 
 	public:
-		SevenWonders();
+		SevenWonders( int );
 
-		void newGame(int xPlayers);
+		void newGame();
 		bool nextPlayer();
 		void setNumPlayers(int newNum);
 		int getPlayerTurn();
@@ -24,7 +24,7 @@ class SevenWonders{
 		int Age;
 		int numPlayers;
 		int PlayerTurn;
-		Player Players[7];
+		vector<Player> players;
 		CardDeck * DeckPtr;
 		CardDeck AgeDeck[3];
 

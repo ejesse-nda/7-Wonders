@@ -16,7 +16,7 @@ using namespace std;
 class Player {
 
 	public:
-		Player( string="Bob", int=1 );
+		Player( string = "Bob", int = 1, int = 1 );
 		int getScore();
 //		int getTurn();
 //		void setPlayerTurn( int );
@@ -40,6 +40,7 @@ class Player {
 		int coins;
 		vector<int> resources; // Card instead of int
 		int calcScore();
+		//Wonder wond;
 
 		CardDeck Played;
 		CardDeck Hand;
