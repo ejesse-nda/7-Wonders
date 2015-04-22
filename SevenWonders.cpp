@@ -12,7 +12,6 @@ SevenWonders::SevenWonders( int np ){
 	PlayerTurn = 1;
 	numPlayers = np;
 	
-	vector<Deck> AgeDeck;
 
 	Deck newDeck(numPlayers);
 	cout << "displaying cards" << endl;
@@ -145,7 +144,7 @@ bool SevenWonders::advanceAge(){
 
 Hand SevenWonders::getPlayerHand(int i){
 
-	//return players[i-1].getHand();
+	return players[i-1].getHand();
 
 }
 
