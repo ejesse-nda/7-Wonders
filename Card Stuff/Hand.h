@@ -29,20 +29,20 @@ int Hand::gethandID() {
 }
 
 int Hand::selectCard(int n) {
-	int ID = discardCard(n);
+	int ID = discardCard(n - 1);
 
 	return ID;
 }
 
 int Hand::discardCard(int n) {
-	int ID = cards[n + 1];
+	int ID = cards[n];
 	cards.erase(cards.begin() + n); //removes selected card from vector
 
 	return ID;
 }
 
 string Hand::getInfo(int n) { //its a monster
-	int ID = cards[n];
+	int ID = n; //cards[n];
 	string line;
 
 	fstream inFile("database.txt");

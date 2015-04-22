@@ -31,7 +31,11 @@ int main() {
 	/**SIMULATION: pretends player is selecting cards**/
 	while (!hand1.checkEmpty()) { //reprsents only player 1, for simplicity's sake
 		string line; //stores a line from the database
-		int ID = hand1.selectCard(0); //selects first card in hand (ideally would be a user input)
+
+		cout << "\nPlayer " << hand1.gethandID() << ": ";
+		hand1.displayCard(); //TEST: prints cards (REMINDER: needs empty checking)
+
+		int ID = hand1.selectCard(1); //selects first card in hand (ideally would be a user input)
 		
 		/*IMPORTANT: this is a sloppy implementation of discard cards into a discard deck*/
 		discard.addCard(ID);
@@ -39,10 +43,6 @@ int main() {
 	
 		/**EXTRACTOR: extracts data from database.txt**/
 		fstream inFile("database.txt");
-	
-		cout << "\nPlayer " << hand1.gethandID() << ": ";
-		hand1.displayCard(); //TEST: prints cards (REMINDER: needs empty checking)
-	
 		inFile.seekg(ios::beg); //returns file iterator to beginning of file
 		for (int i = 0; i < ID; ++i) { //loop skips lines to appropriate data
 			inFile.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -52,7 +52,7 @@ int main() {
 
 		int type = line[3] - '0', value = line[5] - '0'; //"- '0'" converts a numberic char to int (REMINDER: needs numeric checking)
 		string info = hand1.getInfo(ID); //grabs info through function (function may be redundant, iron out later)
-		cout << "Resource ID: " << type << endl;
+		cout << "Resource Type ID: " << type << endl;
 		cout << "Resource Value: " << value << endl;
 		cout << "Description: " << info << endl;
 		/****/
