@@ -1,6 +1,6 @@
 /*Card.h*/
-//#ifndef CARD_H
-//#define CARD_H
+#ifndef CARD_H
+#define CARD_H
 
 #include <iostream>
 #include <vector>
@@ -10,14 +10,14 @@ class Card {
 public:
 	void addCard(int); //adds card to cards vector
 	int getSize(); //returns size of cards vector
-	void displayCard(); //for test purposes
-	string getInfo(); //returns the card description
+	void displayCard(); //for test purpose
+	int checkEmpty(); //returns true (1) when cards vector is empty
 protected:
 	vector<int> cards;
 };
 
 void Card::addCard(int ID) {
-	cards.insert(cards.begin(), ID);
+	cards.push_back(ID);
 
 	return;
 }
@@ -36,4 +36,8 @@ void Card::displayCard() {
 	cout<< endl;
 }
 
-//#endif
+int Card::checkEmpty() {
+	return cards.empty();
+}
+
+#endif
