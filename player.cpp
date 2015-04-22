@@ -79,13 +79,13 @@ void Player::clearHand(){
 }
 */
 
-/*
+
 void Player::dealPlayed(int cardNum){
 
-	playerHand.DealS(Played,cardNum);
+	inPlay.addCard(playerHand.selectCard(cardNum));
 
 }
-*/
+
 
 
 Hand Player::getPlayed(){

@@ -50,8 +50,6 @@ ostream& operator<<(ostream &output, const Card &A){
 }
 
 int Card::getSize() {
-        cout << cards.size();
-
         return cards.size();
 }
 
@@ -60,7 +58,7 @@ void Card::displayCard() {
                 cout << cards[i] << ", ";
         }
 
-        cout<< endl;
+        cout << endl;
 }
 
 int Card::checkEmpty() {

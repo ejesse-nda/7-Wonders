@@ -12,7 +12,7 @@ using namespace std;
 class Deck : public Card {
 public:
 	Deck(); //does absolutely nothing, for now
-	Deck(int); //instantiates n cards into deck
+	Deck(int n, int Age); //instantiates n cards into deck
 	int dealCard(); //passes out a card
 	void shuffle(); //shuffle!
        // int gethandID(); //returns the handID

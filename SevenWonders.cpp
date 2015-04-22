@@ -13,23 +13,27 @@ SevenWonders::SevenWonders( int np ){
 	numPlayers = np;
 	
 
-	Deck newDeck(numPlayers);
-	cout << "displaying cards" << endl;
-        newDeck.displayCard();
+	Deck newDeck1(numPlayers*7,1);
+	Deck newDeck2(numPlayers*7,2);
+	Deck newDeck3(numPlayers*7,3);
 
-	newDeck.shuffle();
-	AgeDeck.push_back(newDeck);
-	newDeck.shuffle();
-	AgeDeck.push_back(newDeck);
-	newDeck.shuffle();
-	AgeDeck.push_back(newDeck);
+	cout << "Displaying cards: " << endl;
+	newDeck1.displayCard();
+	newDeck2.displayCard();
+	newDeck3.displayCard();
+
+	newDeck1.shuffle();
+	AgeDeck.push_back(newDeck1);
+	newDeck2.shuffle();
+	AgeDeck.push_back(newDeck2);
+	newDeck3.shuffle();
+	AgeDeck.push_back(newDeck3);
 	
-	cout << "display specific age" << AgeDeck[0].getSize() << endl;
-	AgeDeck[0].displayCard();
-	cout << "dones" << endl;
-
-	//Deck AgeDeck(7*numPlayers);
-	//DeckPtr->init(Age, numPlayers);
+	cout << endl;
+	
+	cout << "Display specific age: " << AgeDeck[0].getSize() << endl;
+	//AgeDeck[0].displayCard();
+	cout << "Done." << endl;
 
 }
 
@@ -132,8 +136,8 @@ bool SevenWonders::advanceAge(){
 	cout << "age:" << Age << endl;
 	if (Age>0 && Age<=3){
 		for (int i=0; i<numPlayers; i++) {
-			AgeDeck[Age-1].displayCard();
-			players[i].dealtoHand(AgeDeck[Age-1].dealCard() );
+//			AgeDeck[Age-1].displayCard();
+			for (int j=0; j<7; j++)	players[i].dealtoHand(AgeDeck[Age-1].dealCard() );
 		}
 	}
 
@@ -158,6 +162,6 @@ Hand SevenWonders::getPlayerPlayed(int i){
 
 void SevenWonders::playCard(int cardNum){
 
-	//players[PlayerTurn-1].dealPlayed(cardNum);
+	players[PlayerTurn-1].dealPlayed(cardNum);
 
 }

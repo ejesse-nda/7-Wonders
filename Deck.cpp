@@ -9,13 +9,13 @@ using namespace std;
 
 Deck::Deck() : Card() {}
 
-Deck::Deck(int n) {
+Deck::Deck(int n, int Age) {
         srand(time(0)); //seed for shuffle
 
         for (int i = 0; i < n; ++i) {
-                addCard(i);
+                addCard(i+(Age-1)*49);
         }
-        shuffle();
+
 }
 
 int Deck::dealCard() {
