@@ -59,7 +59,10 @@ int Player::playPlayerCard( int i ) {
 	inPlay.addCard( playerHand.selectCard(i) );
 }
 
-int Player::getHand() {
+Hand Player::getHand() {
+
+	return playerHand;
+
 }
 
 /* Weird error
@@ -84,13 +87,13 @@ void Player::dealPlayed(int cardNum){
 }
 */
 
-/* Same Weird error
+
 Hand Player::getPlayed(){
 
 	return inPlay;
 
 }
-*/
+
 
 /* not in Hand class
 void Player::clearPlayed(){

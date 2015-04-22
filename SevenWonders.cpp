@@ -151,7 +151,7 @@ Hand SevenWonders::getPlayerHand(int i){
 
 Hand SevenWonders::getPlayerPlayed(int i){
 
-	//return players[i-1].getPlayed();
+	return players[i-1].getPlayed();
 
 }
 

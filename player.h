@@ -24,7 +24,7 @@ class Player {
 		void addCoins( int );
 		void removeCoins( int );
 		void dealtoHand(int);
-		int getHand();
+		Hand getHand();
 		void clearHand();
 		void dealPlayed(int cardNum);
 		Hand getPlayed();
