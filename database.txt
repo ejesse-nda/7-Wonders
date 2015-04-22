@@ -1,0 +1,14 @@
+00/1/1/"Adds one wood resource."
+01/2/1/"Adds one ore resource."
+02/3/1/"Adds one clay resource."
+03/4/1/"Adds one brick resource."
+04/1/2/"Adds two wood resources."
+05/2/2/"Adds two ore resources."
+06/3/2/"Adds two clay resources."
+07/4/2/"Adds two brick resources."
+08/5/2/"Adds two military."
+09/0/2/"Adds two victory points."
+
+/*database.txt*/
+//0: victory 1: wood 2: ore 3: clay 4:brick 5:military//
+//ID/TYPE/INCREMENT/DESCRIPTION//
