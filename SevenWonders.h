@@ -1,8 +1,9 @@
 #ifndef SEVENWONDERS_H
 #define SEVENWONDERS_H
 
+#include <vector>
 #include "player.h"
-#include "CardDeck.h"
+#include "Deck.h"
 
 class SevenWonders{
 
@@ -16,8 +17,8 @@ class SevenWonders{
 		int getAge();
 		//void resolveTurn();
 		bool advanceAge();
-		CardDeck getPlayerHand(int i);
-		CardDeck getPlayerPlayed(int i);
+		Hand getPlayerHand(int i);
+		Hand getPlayerPlayed(int i);
 		void playCard(int cardNum);
 
 	private:
@@ -25,8 +26,8 @@ class SevenWonders{
 		int numPlayers;
 		int PlayerTurn;
 		vector<Player> players;
-		CardDeck * DeckPtr;
-		CardDeck AgeDeck[3];
+		Deck * DeckPtr;
+		vector<Deck> AgeDeck;
 
 };
 

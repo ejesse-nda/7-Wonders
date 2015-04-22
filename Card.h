@@ -3,41 +3,21 @@
 #define CARD_H
 
 #include <iostream>
-#include <vector>
+#include <deque>
 using namespace std;
 
 class Card {
+
+	friend ostream& operator<<(ostream &, const Card &); //Print the deck, using the delimiter ", "
+
 public:
 	void addCard(int); //adds card to cards vector
 	int getSize(); //returns size of cards vector
 	void displayCard(); //for test purpose
 	int checkEmpty(); //returns true (1) when cards vector is empty
+	void clearCard();
+	int dealCard();
 protected:
-	vector<int> cards;
+	deque<int> cards;
 };
-
-void Card::addCard(int ID) {
-	cards.push_back(ID);
-
-	return;
-}
-
-int Card::getSize() {
-	cout << cards.size();
-
-	return cards.size();
-}
-
-void Card::displayCard() {
-	for (int i = 0; i < cards.size(); ++i) {
-		cout << cards[i] << ", ";
-	}
-
-	cout<< endl;
-}
-
-int Card::checkEmpty() {
-	return cards.empty();
-}
-
 #endif

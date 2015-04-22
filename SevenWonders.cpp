@@ -1,25 +1,35 @@
 #include <string>
 #include <ctime>	// time
 #include <cstdlib>	// srand and ran
+#include <vector>
 #include "SevenWonders.h"
 #include "player.h"
-#include "CardDeck.h"
+#include "Deck.h"
 
 SevenWonders::SevenWonders( int np ){
 
 	Age = 0;
 	PlayerTurn = 1;
 	numPlayers = np;
+	
+	vector<Deck> AgeDeck;
 
-	CardDeck newDeck(7*numPlayers);
+	Deck newDeck(numPlayers);
+	cout << "displaying cards" << endl;
+        newDeck.displayCard();
 
 	newDeck.shuffle();
-	AgeDeck[0].addToDeck(newDeck, 7*numPlayers);
+	AgeDeck.push_back(newDeck);
 	newDeck.shuffle();
-	AgeDeck[1].addToDeck(newDeck, 7*numPlayers);
+	AgeDeck.push_back(newDeck);
 	newDeck.shuffle();
-	AgeDeck[2].addToDeck(newDeck, 7*numPlayers);
+	AgeDeck.push_back(newDeck);
+	
+	cout << "display specific age" << AgeDeck[0].getSize() << endl;
+	AgeDeck[0].displayCard();
+	cout << "dones" << endl;
 
+	//Deck AgeDeck(7*numPlayers);
 	//DeckPtr->init(Age, numPlayers);
 
 }
@@ -93,7 +103,7 @@ void SevenWonders::newGame(){
 	//DeckPtr = new Deck;
 
 	//DeckPtr->init(Age, numPlayers);
-
+	cout << "exit constructor" <<endl;
 }
 
 bool SevenWonders::nextPlayer(){
@@ -120,9 +130,11 @@ int SevenWonders::getAge(){
 bool SevenWonders::advanceAge(){
 	PlayerTurn = 1;
 	Age++;
+	cout << "age:" << Age << endl;
 	if (Age>0 && Age<=3){
-		for (int i=0; i<numPlayers; i++){
-			players[i].dealHand(AgeDeck[Age-1]);
+		for (int i=0; i<numPlayers; i++) {
+			AgeDeck[Age-1].displayCard();
+			players[i].dealtoHand(AgeDeck[Age-1].dealCard() );
 		}
 	}
 
@@ -131,22 +143,22 @@ bool SevenWonders::advanceAge(){
 }
 
 
-CardDeck SevenWonders::getPlayerHand(int i){
+Hand SevenWonders::getPlayerHand(int i){
 
-	return players[i-1].getHand();
+	//return players[i-1].getHand();
 
 }
 
 
-CardDeck SevenWonders::getPlayerPlayed(int i){
+Hand SevenWonders::getPlayerPlayed(int i){
 
-	return players[i-1].getPlayed();
+	//return players[i-1].getPlayed();
 
 }
 
 
 void SevenWonders::playCard(int cardNum){
 
-	players[PlayerTurn-1].dealPlayed(cardNum);
+	//players[PlayerTurn-1].dealPlayed(cardNum);
 
 }
