@@ -26,9 +26,8 @@ class SevenWonders{
 		int numPlayers;
 		int PlayerTurn;
 		vector<Player> players;
-		Deck * DeckPtr;
 		vector<Deck> AgeDeck;
-
+		Deck discardPile;
 };
 
 #endif

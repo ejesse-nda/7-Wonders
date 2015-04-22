@@ -34,4 +34,4 @@ Hand.o: Hand.cpp
 	g++ -c Hand.cpp
 
 clean:
-	rm *.o 7Ws interpreter
+	rm *.o 7Ws #interpreter
