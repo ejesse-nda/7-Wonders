@@ -44,7 +44,8 @@ void SevenWonders::newGame(){
 	cout << "Player one please enter your name: ";
   	cin >> name;
 	Player playerone( name, 1, w+1 );
-        players.push_back( playerone );
+    players.push_back( playerone );
+
 // player 2
 	while ( wonders[w] ) w = rand() % 6;
 	cout << "Player two please enter your name: ";
@@ -95,6 +96,8 @@ void SevenWonders::newGame(){
 	  players.push_back( playerseven );
 	}
 
+	//Psuedo player for hand passing
+	players.push_back(playerone);
 	//delete DeckPtr;
 	//DeckPtr = new Deck;
 
@@ -105,7 +108,22 @@ void SevenWonders::newGame(){
 
 bool SevenWonders::nextPlayer(){
 	PlayerTurn++;
-	if (PlayerTurn>numPlayers) PlayerTurn = 1;
+	if (PlayerTurn>numPlayers) {
+		PlayerTurn = 1;
+		int x= 1-(Age%2);
+		if (x==0) {
+			players[numPlayers].takeHand(players[0]);
+			for(int i=0; i<numPlayers; i++){
+				players[i].takeHand(players[i+1]);
+			}
+		} else {
+			for(int i=numPlayers; i>0; i--){
+				players[i].takeHand(players[i-1]);
+			}
+			players[0].takeHand(players[numPlayers]);
+		}
+		players[numPlayers].clearHand();
+	}
 
 	return (PlayerTurn==1 && players[0].getHandSize()==1);
 }
@@ -122,9 +140,6 @@ int SevenWonders::getAge(){
 	return Age;
 }
 
-//void SevenWonders::resolveTurn(){
-
-//}
 
 bool SevenWonders::advanceAge(){
 	PlayerTurn = 1;

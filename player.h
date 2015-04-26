@@ -28,6 +28,7 @@ class Player {
 		Hand getHand();
 		int getHandSize();
 		int clearHand();
+		void takeHand(Player &nextPlayer);
 
 		//Cards in play Stuff
 		void dealPlayed(int cardNum);

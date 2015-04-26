@@ -66,12 +66,12 @@ Hand Player::getHand() {
 
 }
 
-/* Weird error
-Hand Player::getHand() {
-  return playerHand;
-}
-*/
+void Player::takeHand(Player &nextPlayer){
 
+	playerHand.clearCard();
+	playerHand = nextPlayer.getHand();
+
+}
 
 int Player::clearHand(){
 
