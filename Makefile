@@ -1,7 +1,7 @@
-all: 7Ws BMP
+all: 7Ws BMP interpreter
 
 7Ws: CardDeck.o player.o GameController.o SevenWonders.o wonder.o Card.o Deck.o Hand.o
-	g++ -O0 -g3 player.o GameController.o SevenWonders.o wonder.o Card.o Hand.o Deck.o -o 7Ws
+	g++ player.o GameController.o SevenWonders.o wonder.o Card.o Hand.o Deck.o -o 7Ws
 
 GameController.o: GameController.cpp
 	g++ -c GameController.cpp
@@ -18,8 +18,8 @@ CardDeck.o: CardDeck.cpp
 wonder.o: wonder.cpp
 	g++ -c wonder.cpp
 
-#interpreter: interpreter.o Card.o Hand.o Deck.o
-#	g++ interpreter.cpp Card.h Hand.h Deck.h -o interpreter
+interpreter: interpreter.o Card.o Hand.o Deck.o
+	g++ interpreter.o Card.o Hand.o Deck.o -o interpreter
 
 interpreter.o: interpreter.cpp
 	g++ -c interpreter.cpp
@@ -37,4 +37,4 @@ BMP: Controller2.cpp
 	g++ Controller2.cpp -o BMP -lSDL2
 
 clean:
-	rm *.o 7Ws BMP #interpreter
+	rm *.o 7Ws BMP interpreter

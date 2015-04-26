@@ -1,0 +1,41 @@
+ID/Color/Resources/Requirements/FreeCardID/Description
+Colors: Brown, Grey, bLue, Red, grEen, Yellow
+Resources/Requirements: Stone, Wood, Brick, Ore, Glass, Paper, cLoth, Coin
+
+000/b/s/0/xxx/"Stone Pit"
+001/b/w/0/xxx/"Lumber Yard"
+002/b/b/0/xxx/"Clay Pool"
+003/b/o/0/xxx/"Ore Vein"
+004/b/b|o/c/xxx/"Clay Pit"
+005/b/s|w/c/xxx/"Timber Yard"
+006/g/g/0/xxx/"Glassworks"
+007/g/p/0/xxx/"Press"
+008/g/l/0/xxx/"Loom"
+009/v/3/s/021/"Baths"
+010/v/2/0/022/"Altar"
+011/v/2/0/023/"Theater"
+012/r/1/w/xxx/"Stockade"
+013/r/1/b/xxx/"Guard Tower"
+014/r/1/o/xxx/"Barracks"
+015/g/m/p/024&025/"Scriptorium"
+016/g/e/g/026&027/"Workshop"
+017/g/a/l/028&029/"Apothecary"
+018/y/2/0/030/"Marketplace"
+019/y/2/0/031/"East Trading Post"
+020/y/2/0/031/"West Trading Post"
+
+
+00/1/1/"Adds one wood resource."
+01/23/1/"Adds one ore resource."
+02/3/1/"Adds one clay resource."
+03/4/1/"Adds one brick resource."
+04/1/2/"Adds two wood resources."
+05/2/2/"Adds two ore resources."
+06/3/2/"Adds two clay resources."
+07/4/2/"Adds two brick resources."
+08/5/2/"Adds two military."
+09/0/2/"Adds two victory points."
+
+/*database.txt*/
+//0: victory 1: wood 2: ore 3: clay 4:brick 5:military//
+//ID/TYPE/INCREMENT/DESCRIPTION//
