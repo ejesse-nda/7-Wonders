@@ -19,7 +19,6 @@ int main(){
 	Game.newGame();
 	cout << "after new game" << endl;
 
-	exit = Game.advanceAge();
 	cout << "It is Age " << Game.getAge() << "." << endl;
 	while (!exit){
 

@@ -106,6 +106,7 @@ void SevenWonders::newGame(){
 	//DeckPtr = new Deck;
 
 	//DeckPtr->init(Age, numPlayers);
+	SevenWonders::advanceAge();
 	cout << "exit constructor" <<endl;
 }
 
