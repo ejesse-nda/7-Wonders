@@ -12,7 +12,7 @@ Deck::Deck() : Card() {}
 Deck::Deck(int n, int Age) {
         srand(time(0)); //seed for shuffle
 
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n*7; ++i) {
                 addCard(i+(Age-1)*49);
         }
 
@@ -31,4 +31,3 @@ void Deck::shuffle() {
 
         return;
 }
-

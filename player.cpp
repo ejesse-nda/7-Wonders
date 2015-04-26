@@ -38,8 +38,9 @@ int Player::getCoins() {
 	return coins;
 }
 
-void Player::addCoins( int val ) {
-	coins += val;
+void Player::addCoins( int cardNum ) {
+	coins += 2;
+	playerHand.discardCard(cardNum);
 }
 
 void Player::removeCoins( int val ) {
@@ -71,14 +72,17 @@ Hand Player::getHand() {
 }
 */
 
-/*
-void Player::clearHand(){
 
-	playerHand.clearCard();
+int Player::clearHand(){
+
+	return playerHand.clearCard();
 
 }
-*/
 
+
+int Player::getHandSize(){
+	return playerHand.getSize();
+}
 
 void Player::dealPlayed(int cardNum){
 

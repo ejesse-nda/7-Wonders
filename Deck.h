@@ -15,9 +15,10 @@ public:
 	Deck(int n, int Age); //instantiates n cards into deck
 	int dealCard(); //passes out a card
 	void shuffle(); //shuffle!
-       // int gethandID(); //returns the handID
-       // int selectCard(int); //when user selects a card to use
-       // int discardCard(int); //discard specified card
-       // string getInfo(int); //returns the card description
+//	int gethandID(); //returns the handID
+//	int selectCard(int); //when user selects a card to use
+//	int discardCard(int); //discard specified card
+//	string getInfo(int); //returns the card description
+
 };
 #endif

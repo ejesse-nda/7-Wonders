@@ -15,7 +15,8 @@ public:
 	int getSize(); //returns size of cards vector
 	void displayCard(); //for test purpose
 	int checkEmpty(); //returns true (1) when cards vector is empty
-	void clearCard();
+	int returnCard(int cardNum);
+	int clearCard();
 	int dealCard();
 protected:
 	deque<int> cards;

@@ -5,22 +5,20 @@
 #include "SevenWonders.h"
 #include "player.h"
 #include "Deck.h"
+#include "Hand.h"
 
+//Constructor
 SevenWonders::SevenWonders( int np ){
+
 
 	Age = 0;
 	PlayerTurn = 1;
 	numPlayers = np;
-	
 
-	Deck newDeck1(numPlayers*7,1);
-	Deck newDeck2(numPlayers*7,2);
-	Deck newDeck3(numPlayers*7,3);
-
-	cout << "Displaying cards: " << endl;
-	newDeck1.displayCard();
-	newDeck2.displayCard();
-	newDeck3.displayCard();
+	//Create new decks, for Age 1, 2, and 3
+	Deck newDeck1(numPlayers,1);
+	Deck newDeck2(numPlayers,2);
+	Deck newDeck3(numPlayers,3);
 
 	newDeck1.shuffle();
 	AgeDeck.push_back(newDeck1);
@@ -28,14 +26,9 @@ SevenWonders::SevenWonders( int np ){
 	AgeDeck.push_back(newDeck2);
 	newDeck3.shuffle();
 	AgeDeck.push_back(newDeck3);
-	
-	cout << endl;
-	
-	cout << "Display specific age: " << AgeDeck[0].getSize() << endl;
-	//AgeDeck[0].displayCard();
-	cout << "Done." << endl;
 
 }
+
 
 void SevenWonders::newGame(){
 	srand( time(0) );
@@ -112,7 +105,9 @@ void SevenWonders::newGame(){
 
 bool SevenWonders::nextPlayer(){
 	PlayerTurn++;
-	return (PlayerTurn>numPlayers);
+	if (PlayerTurn>numPlayers) PlayerTurn = 1;
+
+	return (PlayerTurn==1 && players[0].getHandSize()==1);
 }
 
 void SevenWonders::setNumPlayers(int newNum){
@@ -134,14 +129,15 @@ int SevenWonders::getAge(){
 bool SevenWonders::advanceAge(){
 	PlayerTurn = 1;
 	Age++;
-	cout << "age:" << Age << endl;
+	cout << "Age:" << Age << endl;
+
 	if (Age>0 && Age<=3){
 		for (int i=0; i<numPlayers; i++) {
-//			AgeDeck[Age-1].displayCard();
+			if (Age>1) discardPile.addCard(players[i].clearHand());
 			for (int j=0; j<7; j++)	players[i].dealtoHand(AgeDeck[Age-1].dealCard() );
 		}
 	}
-
+	cout << discardPile << endl;
 	return (Age>3);
 
 }
@@ -161,8 +157,21 @@ Hand SevenWonders::getPlayerPlayed(int i){
 }
 
 
+int SevenWonders::getPlayerCoin(int i){
+	return players[i-1].getCoins();
+}
+
 void SevenWonders::playCard(int cardNum){
 
 	players[PlayerTurn-1].dealPlayed(cardNum);
+
+}
+
+void SevenWonders::disCard(int cardNum){
+
+	Hand Temp = players[PlayerTurn-1].getHand();
+	discardPile.addCard(Temp.returnCard(cardNum));
+
+	players[PlayerTurn-1].addCoins(cardNum);
 
 }

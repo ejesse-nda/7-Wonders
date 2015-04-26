@@ -17,9 +17,13 @@ class SevenWonders{
 		int getAge();
 		//void resolveTurn();
 		bool advanceAge();
+
 		Hand getPlayerHand(int i);
 		Hand getPlayerPlayed(int i);
+		int getPlayerCoin(int i);
+
 		void playCard(int cardNum);
+		void disCard(int cardNum);
 
 	private:
 		int Age;

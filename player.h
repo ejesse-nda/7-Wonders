@@ -17,15 +17,19 @@ class Player {
 	public:
 		Player( string = "Bob", int = 1, int = 1 );
 		int getScore();
-//		int getTurn();
-//		void setPlayerTurn( int );
 
+		//Coin Stuff
 		int getCoins();
 		void addCoins( int );
 		void removeCoins( int );
+
+		//Cards in hand stuff
 		void dealtoHand(int);
 		Hand getHand();
-		void clearHand();
+		int getHandSize();
+		int clearHand();
+
+		//Cards in play Stuff
 		void dealPlayed(int cardNum);
 		Hand getPlayed();
 		void clearPlayed();

@@ -65,6 +65,12 @@ int Card::checkEmpty() {
         return cards.empty();
 }
 
-void Card::clearCard() {
+int Card::clearCard() {
+		int hold=cards[0];
         cards.clear();
+		return hold;
+}
+
+int Card::returnCard(int cardNum){
+	return cards[cardNum];
 }
