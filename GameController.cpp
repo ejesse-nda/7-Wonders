@@ -49,9 +49,10 @@ int main() {
 		cout << "Hand:	" << Game.getPlayerHand( Game.getPlayerTurn() ); //print hand
 		cout << "Coins:	" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 
-		cout << "Move (p/c/w/o/e/n): ";
+		cout << "Move (p/c/w/e/n): ";
 		cin >> move;
 
+		/*Play a Card*/
 		if ( move == "p" ) {
 			check = 1;
 
@@ -86,6 +87,7 @@ int main() {
 			cout << "Coins:	" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 			nextAge = Game.nextPlayer();
 		}
+		/*Convert Card to Coins!*/
 		else if ( move == "c" ) {
 			check = 1;
 
@@ -120,12 +122,9 @@ int main() {
 			cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 			nextAge = Game.nextPlayer();
 		}
-		else if ( move == "w" ) {
+		/*else if ( move == "w" ) {
 			cout << "Make Wonder" << endl;
-		}
-		else if ( move == "o" ) {
-			cout << "Options" << endl;
-		}
+		}*/
 		else if ( move == "e" ) {
 			cout << "Exiting..." << endl;
 			exit = true;
@@ -140,15 +139,15 @@ int main() {
 
 		if ( nextAge && !exit ) {
 			exit = Game.advanceAge();
-			if (exit){
+			if ( exit ){
 				// calculates and displays player scores and winner of game
 				Game.calcWinner();
 				cout << "Play a new game? (y/n): ";
 				cin >> newgame;
-				if (newgame=="y"){
+				if ( newgame == "y" ){
 					exit = false;
 					numPlayers = 0;
-					while (numPlayers>7 || numPlayers<=1){
+					while ( numPlayers>7 || numPlayers<=1 ) {
 						cout << "Choose number of players: ";
 						cin >> numPlayers;
 					}
