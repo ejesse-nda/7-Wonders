@@ -24,6 +24,8 @@ class SevenWonders{
 
 		void playCard(int cardNum);
 		void disCard(int cardNum);
+		
+		void calcWinner();
 
 	private:
 		int Age;

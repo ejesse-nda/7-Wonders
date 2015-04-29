@@ -1,4 +1,4 @@
-/* Max Walsh, 7 Wonders
+/* Max Walsh, player.cpp
  * This is the implementation file for the Player class. This contains the 
  * functions that will be used for the Player class in the 7 Wonders card game.
  * It will keep track of the turn, players to the left and right, and keep
@@ -16,13 +16,13 @@
 using namespace std;
 
 // non-default constructor
-Player::Player( string n, int t, int w ) {
+Player::Player( int t, int w ) {
         srand( time(0) );
-	name = n;
-	score = 0;
+	//name = n;
+	score = 3; // number of coins initially
 //	playerturn = t;
 	coins = 3;
-        //Wonder( w, t );
+        Wonder( w, t );
 }
 
 
@@ -40,12 +40,14 @@ int Player::getCoins() {
 
 void Player::addCoins( int cardNum ) {
 	coins += 2;
+        score = coins;
 	playerHand.discardCard(cardNum);
 }
 
 void Player::removeCoins( int val ) {
 	if ( val <= coins ) {
 		coins -= val;
+		score = coins;
 	} else {
 		cout << "Sorry, there are not enough coins!" << endl;
 	}

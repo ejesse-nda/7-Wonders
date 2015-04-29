@@ -15,7 +15,7 @@ using namespace std;
 class Player {
 
 	public:
-		Player( string = "Bob", int = 1, int = 1 );
+		Player( int = 1, int = 1 );
 		int getScore();
 
 		//Coin Stuff

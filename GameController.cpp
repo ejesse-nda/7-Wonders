@@ -9,8 +9,7 @@ int main(){
 	bool nextAge;
 	int players=0, cardNum;
 	string newgame, move;
-
-	while (players>7 || players<=0){
+	while (players>7 || players<3){
 		cout << "Choose number of players: ";
 		cin >> players;
 	}
@@ -63,6 +62,8 @@ int main(){
 		if (nextAge && !exit) {
 			exit = Game.advanceAge();
 			if (exit){
+				// calculates and displays player scores and winner of game
+				Game.calcWinner();
 				cout << "Play a new game? (y/n): ";
 				cin >> newgame;
 				if (newgame=="y"){
