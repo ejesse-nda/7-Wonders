@@ -2,6 +2,7 @@
 #include <ctime>	// time
 #include <cstdlib>	// srand and ran
 #include <vector>
+#include <algorithm>
 #include "SevenWonders.h"
 #include "player.h"
 #include "Deck.h"
@@ -36,56 +37,59 @@ void SevenWonders::newGame(){
       	int w;
 	Age = 0;
 	PlayerTurn = 1;
-	vector<int> wonders(7, 0);
+	// initialize vector
+	vector<int> wonders;
+	for ( int i = 0; i < 7; i++ ) {
+	  wonders.push_back( i );
+	}
+	random_shuffle( wonders.begin(), wonders.end() );
 
 // player 1
-	w = rand() % 6;
-	wonders[w] = 1;
+	w = wonders.back();
+	wonders.pop_back();
 	Player playerone( 1, w+1 );
     players.push_back( playerone );
 
 // player 2
-	while ( wonders[w] ) w = rand() % 6;
+	w = wonders.back();
+	wonders.pop_back();
 	Player playertwo( 2, w+1 );
 	players.push_back( playertwo );
 
 // player 3
-	while ( wonders[w] ) w = rand() % 6;
+	w = wonders.back();
+	wonders.pop_back();
 	Player playerthree( 3, w+1 );
 	players.push_back( playerthree );
 
 // player 4
 	if ( numPlayers >= 4 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player four please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playerfour( 4, w+1 );
 	  players.push_back( playerfour );
 	}
 
 // player 5
 	if ( numPlayers >= 5 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player five please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playerfive( 5, w+1 );
 	  players.push_back( playerfive );
 	}
 
 // player 6
 	if ( numPlayers >= 6 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player six please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playersix( 6, w+1 );
 	  players.push_back( playersix );
 	}
 
 // player 7
 	if ( numPlayers == 7 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player seven please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playerseven( 7, w+1 );
 	  players.push_back( playerseven );
 	}
