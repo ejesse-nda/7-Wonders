@@ -185,25 +185,37 @@ void SevenWonders::disCard(int cardNum){
 
 }
 
+// returns hand size
+int SevenWonders::getHandSize() {
+  return (PlayerTurn - 1);
+}
+
 
 // Calculates the winner of the game
 void SevenWonders::calcWinner() {
   int highscore = 0;
   int winner = 0;
   int pnum = 1;
+  int tie = 0;
   vector<Player>::iterator it = players.begin();
   cout << "Players:     Score:" << endl;
   for ( it; it != players.end(); ++it ) {
     cout << "Player " << pnum << ":	" << it->getScore() << endl;
-    if ( it->getScore() > highscore ) {
+    if ( it->getScore() == highscore ) {
+      tie = 1;
+    } else if ( it->getScore() > highscore ) {
       highscore = it->getScore();
       winner = pnum;
+      tie = 0;
     }
     pnum++;
   }
 
-// display winner
-  cout << "Player " << winner << " has won the game!" << endl;
+  if ( tie ) {
+    cout << "There has been a tie!" << endl;
+  } else {
+    cout << "Player " << winner << " has won the game!" << endl;
+  }
 } 
 
 
