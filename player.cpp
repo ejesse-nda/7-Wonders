@@ -98,6 +98,7 @@ void Player::checkCard(int ID) {
 	type = line.substr(0, line.size() - 1);
 	inFile >> line;
 	value = atoi(line.substr(0, line.size() - 1).c_str());
+	cout << "t: " << type << " v: " << value << endl;
 
 	addResource(type, value);
 }

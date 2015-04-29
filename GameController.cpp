@@ -3,63 +3,99 @@
 #include <string>
 using namespace std;
 
-int main(){
-
-	bool exit=false;
+int main() {
+	/**Initializations**/
+	bool exit = false;
 	bool nextAge;
-	int players=0, cardNum;
+	int numPlayers, cardPos, check = 1;
+	char input;
 	string newgame, move;
-	while (players>7 || players<3){
-		cout << "Choose number of players: ";
-		cin >> players;
+
+	while ( check ) { //select number of players
+		cout << "Choose number of players (3-5 players only): ";
+		cin >> numPlayers;
+
+		if ( cin.fail() || numPlayers > 5 || numPlayers < 3 ) { //checks if int and < 5 and > 3
+			cout << "Please enter an appropriate number of players (3-5 players only).\n";
+		}
+		else {
+			while ( 1 ) { //confirmation of numPlayers
+				cout << numPlayers << " players entered. Are you sure? (y/n)\n";
+				cin >> input;
+
+				if ( input == 'y' ) {
+					check = 0;
+					break;
+				}
+				else if ( input == 'n' ) {
+					break;
+				}
+			}
+		}
 	}
-	SevenWonders Game( players );
+
+	SevenWonders Game( numPlayers );
 	cout << "before new game" << endl;
 	Game.newGame();
 	cout << "after new game" << endl;
 
-	cout << "It is Age " << Game.getAge() << "." << endl;
+
+	/**Game Driver**/
+	cout << "Welcome to Age " << Game.getAge() << "." << endl;
 	while (!exit){
 
-		cout << "It is player " << Game.getPlayerTurn() << "'s turn." << endl;
-		cout << "Hand:  " << Game.getPlayerHand(Game.getPlayerTurn());
-		cout << "Coins: " << Game.getPlayerCoin(Game.getPlayerTurn()) << endl;
+		cout << "It is Player " << Game.getPlayerTurn() << "'s turn." << endl;
+		cout << "Hand:		" << Game.getPlayerHand( Game.getPlayerTurn() );
+		cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 
 		cout << "Move (p/c/w/o/e/n): ";
 		cin >> move;
 
-		if (move == "p"){
+		if ( move == "p" ) {
+			while (1) {
+				cin >> cardPos;
 
-			cin >> cardNum;
-
-			Game.playCard(cardNum);
-			cout << "In  Hand: " << Game.getPlayerHand(Game.getPlayerTurn());
-			cout << "In front: " << Game.getPlayerPlayed(Game.getPlayerTurn());
-			cout << "Coins: " << Game.getPlayerCoin(Game.getPlayerTurn()) << endl << endl;
+				if ( cin.fail() || cardPos < 1 || cardPos > Game.getHandSize() ) {
+					cout << "Select an appropriate card (by position).\n";
+				}
+				else {
+					break;
+				}
+			}
+			Game.playCard( cardPos );
+			cout << "In hand:	" << Game.getPlayerHand( Game.getPlayerTurn() );
+			cout << "In play:	" << Game.getPlayerPlayed( Game.getPlayerTurn() );
+			cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 			nextAge = Game.nextPlayer();
-		} else if (move == "c"){
-			cin >> cardNum;
+		}
+		else if ( move == "c" ) {
+			cin >> cardPos;
 
-			Game.disCard(cardNum-1);
-			cout << "In  Hand: " << Game.getPlayerHand(Game.getPlayerTurn());
-			cout << "In front: " << Game.getPlayerPlayed(Game.getPlayerTurn());
-			cout << "Coins: " << Game.getPlayerCoin(Game.getPlayerTurn()) << endl << endl;
+			Game.disCard( cardPos - 1 );
+			cout << "In hand:	" << Game.getPlayerHand( Game.getPlayerTurn() );
+			cout << "In play:	" << Game.getPlayerPlayed( Game.getPlayerTurn() );
+			cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 			nextAge = Game.nextPlayer();
-		} else if (move == "w"){
+		}
+		else if ( move == "w" ) {
 			cout << "Make Wonder" << endl;
-		} else if (move == "o"){
+		}
+		else if ( move == "o" ) {
 			cout << "Options" << endl;
-		} else if (move == "e"){
+		}
+		else if ( move == "e" ) {
 			cout << "Exiting..." << endl;
 			exit = true;
-		} else if (move == "n"){
+		}
+		else if ( move == "n" ) {
 			cout << "Next Player..." << endl;
 			nextAge = Game.nextPlayer();
-		} else {
+		}
+		else {
 			cout << "Invalid Move" << endl;
 		}
 
-		if (nextAge && !exit) {
+		if ( nextAge && !exit ) {
 			exit = Game.advanceAge();
 			if (exit){
 				// calculates and displays player scores and winner of game
@@ -68,16 +104,19 @@ int main(){
 				cin >> newgame;
 				if (newgame=="y"){
 					exit = false;
-					players = 0;
-					while (players>7 || players<=1){
+					numPlayers = 0;
+					while (numPlayers>7 || numPlayers<=1){
 						cout << "Choose number of players: ";
-						cin >> players;
+						cin >> numPlayers;
 					}
 					Game.newGame();
 					exit = Game.advanceAge();
-					cout << "It is Age " << Game.getAge() << "." << endl;
+					cout << "Welcome to Age " << Game.getAge() << "." << endl;
 				} // what if press n or something else
-			} else cout << "It is Age " << Game.getAge() << "." << endl;
+			}
+			else {
+				cout << "Welcome to Age " << Game.getAge() << "." << endl;
+			}
 		}
 	}
 
