@@ -35,10 +35,14 @@ class Player {
 		Hand getPlayed();
 		void clearPlayed();
 
+		void checkCard(int);
+		void addResource(string, int);
 
 	private:
 		string name;
 		int score;
+		int victory;
+		int military;
 //		int playerturn;
 		int coins;
 		vector<int> resources; // Card instead of int
