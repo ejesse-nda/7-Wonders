@@ -19,22 +19,21 @@ const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 SDL_Window* gWindow = NULL;		//Window that appears (g for global)
 SDL_Renderer* gRenderer = NULL; //The renderer that puts images in window
-SDL_Surface* gScreenSurface = NULL;
-SDL_Texture* gCard = NULL;		//Surface containing Card image
-SDL_Texture* gButton = NULL;
+SDL_Texture* gCard = NULL;		//Surface for Card controller
+SDL_Texture* gButton = NULL;	//Texture for Button controller
 
+//Vectors for various image storage
 vector<SDL_Texture*> gCards;
 vector<SDL_Texture*> gButtons;
 vector<SDL_Texture*> gAge;
 vector<SDL_Texture*> gNum;
 
-
 //Function declarations
 bool init();
 bool loadMedia();
 void close();
-SDL_Surface* loadSurface(std::string path);
 SDL_Texture* loadTexture(std::string path);
+
 
 //Main Function
 int main() {
@@ -78,6 +77,8 @@ int main() {
 		Card.push_back(Card5);
 		Card.push_back(Card6);
 		Card.push_back(Card7);
+
+
 		//Main while loop
 		while (!quit) {
 
@@ -92,14 +93,11 @@ int main() {
 			//Clean the screen
 			SDL_RenderClear(gRenderer);
 
-
 			//Display Age and Player Number
 			SDL_RenderSetViewport(gRenderer, &AgeSpot);
 			SDL_RenderCopy(gRenderer, gAge[Age-1], NULL, NULL);
 			SDL_RenderSetViewport(gRenderer, &PlayerSpot);
 			SDL_RenderCopy(gRenderer, gNum[playerTurn-1], NULL, NULL);
-
-
 
 			//Display Cards/Selection
 			for (int i = 0; i<numCards; i++){
@@ -108,7 +106,6 @@ int main() {
 				SDL_RenderSetViewport(gRenderer, &Card[i]);
 				SDL_RenderCopy(gRenderer, gCard, NULL, NULL);
 			}
-
 
 			//Display Button/Selection
 			gButton = gButtons[0];
@@ -126,10 +123,13 @@ int main() {
 
 			//Conditionally display next player turn.
 			if (cardSelect!=0 && buttonSelect!=0){
+				//If button pressed...
 				if (Button1.x<xi && xi< Button1.x+Button1.w && Button1.y<yi && yi < Button1.y+Button1.w && reset==true) {
+					//Reset player selections
 					cardSelect=0;
 					buttonSelect=0;
 					reset = false;
+					//Dummy Game controls
 					if (playerTurn==numPlayers){
 						playerTurn=0;
 						numCards--;
@@ -139,6 +139,7 @@ int main() {
 						}
 					}
 					playerTurn++;
+				//else keep button displayed
 				} else {
 					SDL_RenderSetViewport(gRenderer, &Button1);
 					SDL_RenderCopy(gRenderer, gButtons[6], NULL, NULL);
@@ -153,6 +154,7 @@ int main() {
 
 	}//End if initialization conditional
 
+	//Close everything
 	close();
 
 	return 0;
@@ -176,15 +178,14 @@ bool init(){
 			cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 			success = false;
 		} else {
-			//Get window surface
+			//Create Renderer
 			gRenderer = SDL_CreateRenderer(gWindow,-1,0);
 			if (gRenderer==NULL){
 				cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
 				success = false;
 			} else {
+				//Set default background to black
 				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0x00);
-
-				gScreenSurface = SDL_GetWindowSurface(gWindow);
 			}
 		}
 	}
@@ -199,51 +200,32 @@ bool loadMedia(){
 	//Success flag
 	bool success = true;
 
-	//SDL_Texture * SDL_ConvertSurfaceFormat(IMG_Load("card.jpg"), gScreenSurface->format, 0);//
-	//Load image
-	gCards.push_back(NULL);//resize(2);
-	gCards.push_back(NULL);//resize(2);
-	gAge.push_back(NULL);//resize(2);
-	gAge.push_back(NULL);//resize(2);
-	gAge.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gNum.push_back(NULL);//resize(2);
-	gCards[0] = loadTexture("Images/7_wonders.jpg");
-	gCards[1] = loadTexture("Images/7_wonders1.jpg");
-	gAge[0] = loadTexture("Images/Age1.jpg");
-	gAge[1] = loadTexture("Images/Age2.jpg");
-	gAge[2] = loadTexture("Images/Age3.jpg");
-	gNum[0] = loadTexture("Images/Num1.jpg");
-	gNum[1] = loadTexture("Images/Num2.jpg");
-	gNum[2] = loadTexture("Images/Num3.jpg");
-	gNum[3] = loadTexture("Images/Num4.jpg");
-	gNum[4] = loadTexture("Images/Num5.jpg");
-	gNum[5] = loadTexture("Images/Num6.jpg");
-	gNum[6] = loadTexture("Images/Num7.jpg");
+	//Load Card images
+	gCards.push_back(loadTexture("Images/7_wonders.jpg"));
+	gCards.push_back(loadTexture("Images/7_wonders1.jpg"));
 
+	//Load Age numbers
+	gAge.push_back(loadTexture("Images/Age1.jpg"));
+	gAge.push_back(loadTexture("Images/Age2.jpg"));
+	gAge.push_back(loadTexture("Images/Age3.jpg"));
 
+	//Load Player numbers
+	gNum.push_back(loadTexture("Images/Num1.jpg"));
+	gNum.push_back(loadTexture("Images/Num2.jpg"));
+	gNum.push_back(loadTexture("Images/Num3.jpg"));
+	gNum.push_back(loadTexture("Images/Num4.jpg"));
+	gNum.push_back(loadTexture("Images/Num5.jpg"));
+	gNum.push_back(loadTexture("Images/Num6.jpg"));
+	gNum.push_back(loadTexture("Images/Num7.jpg"));
 
-cout << "Cards" << endl;
-	gButtons.push_back(NULL);//resize(2);
-	gButtons.push_back(NULL);//resize(2);
-	gButtons.push_back(NULL);//resize(2);
-	gButtons.push_back(NULL);//resize(2);
-	gButtons.push_back(NULL);//resize(2);
-	gButtons.push_back(NULL);//resize(2);
-	gButtons.push_back(NULL);//resize(2);
-	gButtons[0] = loadTexture("Images/PlayButtonU.jpg");
-	gButtons[1] = loadTexture("Images/PlayButtonS.jpg");
-	gButtons[2] = loadTexture("Images/WonderButtonU.jpg");
-	gButtons[3] = loadTexture("Images/WonderButtonS.jpg");
-	gButtons[4] = loadTexture("Images/CoinU.jpg");
-	gButtons[5] = loadTexture("Images/CoinS.jpg");
-	gButtons[6] = loadTexture("Images/NextButton.jpg");
-cout << "buttons" << endl;
+	//Load Buttons
+	gButtons.push_back(loadTexture("Images/PlayButtonU.jpg"));
+	gButtons.push_back(loadTexture("Images/PlayButtonS.jpg"));
+	gButtons.push_back(loadTexture("Images/WonderButtonU.jpg"));
+	gButtons.push_back(loadTexture("Images/WonderButtonS.jpg"));
+	gButtons.push_back(loadTexture("Images/CoinU.jpg"));
+	gButtons.push_back(loadTexture("Images/CoinS.jpg"));
+	gButtons.push_back(loadTexture("Images/NextButton.jpg"));
 
 	return success;
 }
@@ -252,16 +234,13 @@ cout << "buttons" << endl;
 //Shut down the SDL and free the surfaces to avoid memory leaks
 void close(){
 
-//	SDL_DestroyTexture(gTexture);
-//	gTexture = NULL;
-
+	//Destroy Renderer
 	SDL_DestroyRenderer(gRenderer);
 	gRenderer = NULL;
 
 	//Deallocate surface
-//	SDL_FreeSurface(gCard);
-//	SDL_DestroyTexture(gCard);
-//	gCard = NULL;
+	SDL_DestroyTexture(gCard);
+	gCard = NULL;
 
 	//Destroy window
 	SDL_DestroyWindow(gWindow);
@@ -274,42 +253,24 @@ void close(){
 }
 
 
-//Load the specified image into a surface
-SDL_Surface* loadSurface(std::string path){
-
-	//Final optimized image
-	SDL_Surface* optimizedSurface = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = SDL_LoadBMP(path.c_str());
-	if (loadedSurface == NULL) {
-		cout << "Unable to load image " << path << "! SDL_Error: " << SDL_GetError() << endl;
-	} else {
-		//If surface not null, Convert surface to screen format
-		optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
-		if (optimizedSurface == NULL) cout << "Unable to optimize image " << path << "! SDL_Error: " << SDL_GetError() << endl;
-
-		//Free old surface
-		SDL_FreeSurface(loadedSurface);
-
-	}
-
-	return optimizedSurface;
-}
-
+//Load specified image into a texture
 SDL_Texture* loadTexture(string path){
 
+	//Final optimized image
 	SDL_Texture* newTexture = NULL;
 
+	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
 	if (loadedSurface == NULL){
 		cout << "Unable to load image " << path << "! SDL_Error: " << SDL_GetError() << endl;
 	} else {
 		newTexture = SDL_CreateTextureFromSurface(gRenderer,loadedSurface);
+		//Make sure texture not null
 		if(newTexture == NULL){
 			cout << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << endl;
 		}
+		//Free old surface
 		SDL_FreeSurface(loadedSurface);
 	}
 
