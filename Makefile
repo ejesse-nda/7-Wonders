@@ -34,7 +34,7 @@ Hand.o: Hand.cpp
 	g++ -c Hand.cpp
 
 BMP: Controller2.cpp
-	g++ Controller2.cpp -o BMP -lSDL2
+	g++ Controller2.cpp -o BMP -lSDL2 -lSDL2_image
 
 clean:
 	rm *.o 7Ws BMP interpreter

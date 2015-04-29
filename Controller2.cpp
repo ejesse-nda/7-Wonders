@@ -1,34 +1,40 @@
 /*
- * File: tutorialBMP.cpp
+ * File: Controller2.cpp
  * Author: Eric Jesse
  * Class: CSE20212, Sp 2015
- * Lab: 7&8
- * Description: SDL tutorial driver for bitmap images.
+ * Description: GUI for 7 Wonders game
  *    Can move a card image around the window via the arrow keys.
  *
  */
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
 //GLOBAL VARIABLES
-const int SCREEN_WIDTH = 600;	//335 is width of Card image
-const int SCREEN_HEIGHT = 600;	//515 is length of Card image
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
 SDL_Window* gWindow = NULL;		//Window that appears (g for global)
-SDL_Surface* gScreenSurface = NULL; //Surface of window to write to
-SDL_Surface* gCard = NULL;		//Surface containing Card image
-SDL_Surface* gButton = NULL;
-vector<SDL_Surface*> gCards;
-vector<SDL_Surface*> gButtons;
+SDL_Renderer* gRenderer = NULL; //The renderer that puts images in window
+SDL_Surface* gScreenSurface = NULL;
+SDL_Texture* gCard = NULL;		//Surface containing Card image
+SDL_Texture* gButton = NULL;
+
+vector<SDL_Texture*> gCards;
+vector<SDL_Texture*> gButtons;
+vector<SDL_Texture*> gAge;
+vector<SDL_Texture*> gNum;
+
 
 //Function declarations
 bool init();
 bool loadMedia();
 void close();
 SDL_Surface* loadSurface(std::string path);
+SDL_Texture* loadTexture(std::string path);
 
 //Main Function
 int main() {
@@ -39,15 +45,39 @@ int main() {
 	else if( !loadMedia() ) cout << "Failed to load media!" << endl;
 	else {
 
-		bool quit = false; //Main loop flag
-		bool mouseDown = false;
-		bool reset = false;
-		int x=0, y=0, xt=0, yt=0, xi=0, yi=0, xf=0, yf=0; //Initial image offset
-		int cardSelect = 0, buttonSelect = 0;
+		bool quit = false;  //Main loop flag
+		bool reset = false; //Reset selection flag
+		int xi=0, yi=0; //Mouse input variables
+		int cardSelect = 0, buttonSelect = 0; //Selection variablea
+		int playerTurn = 1, Age = 1, numCards=7, numPlayers=2; //Game Test Variables
 		SDL_Event e; //Event handler
+		//Initialize Button/Card selection
 		gCard = gCards[0];
 		gButton = gButtons[0];
 
+		//Setup windows
+		SDL_Rect Button1 = {010,0,100,100};
+		SDL_Rect Button2 = {120,0,100,100};
+		SDL_Rect Button3 = {230,0,100,100};
+		SDL_Rect Button4 = {340,0,100,100};
+		SDL_Rect AgeSpot = {450,0,100,100};
+		SDL_Rect PlayerSpot = {560,0,100,100};
+		vector<SDL_Rect> Card;
+
+		SDL_Rect Card1 = {010,400,100,200};
+		SDL_Rect Card2 = {120,400,100,200};
+		SDL_Rect Card3 = {230,400,100,200};
+		SDL_Rect Card4 = {340,400,100,200};
+		SDL_Rect Card5 = {450,400,100,200};
+		SDL_Rect Card6 = {560,400,100,200};
+		SDL_Rect Card7 = {670,400,100,200};
+		Card.push_back(Card1);
+		Card.push_back(Card2);
+		Card.push_back(Card3);
+		Card.push_back(Card4);
+		Card.push_back(Card5);
+		Card.push_back(Card6);
+		Card.push_back(Card7);
 		//Main while loop
 		while (!quit) {
 
@@ -55,118 +85,69 @@ int main() {
 			while (SDL_PollEvent(&e)!=0) {
 				//User requests quit
 				if (e.type == SDL_QUIT) quit = true;
-				//User presses a key
-                else if (e.type == SDL_KEYDOWN) {
-                    //Set new card position based on arrow key press
-                    switch (e.key.keysym.sym) {
-                        case SDLK_UP:
-						y = 300-y;
-						break;
-
-                        case SDLK_DOWN:
-						y = 300-y;
-                        break;
-
-                        case SDLK_LEFT:
-						x = 300-x;
-                        break;
-
-                        case SDLK_RIGHT:
-						x = 300-x;
-                        break;
-
-						case SDLK_RETURN:
-						if (gCard == gCards[0]) gCard = gCards[1];
-						else if (gCard == gCards[1]) gCard = gCards[0];
-
-                        default:
-                        break;
-                    }
-                } else if (e.type == SDL_MOUSEBUTTONDOWN){
-					SDL_GetMouseState(&xi,&yi);
-					if ( x<xi && xi< x+gCard->w/2 && y<yi && yi < y+gCard->h/2){
-						mouseDown = true;
-						xt = x;
-						yt = y;
-					}
-//					cout << "Xi: " << xi << endl << "Yi: " << yi << endl;
-				} else if (e.type == SDL_MOUSEMOTION){
-					SDL_GetMouseState(&xf,&yf);
-					if (mouseDown == true){
-						x = xt+(xf-xi);
-						if (x < 0) x = 0;
-						if (x+gCard->w/2 > SCREEN_WIDTH) x = SCREEN_WIDTH - gCard->w/2;
-						y = yt+(yf-yi);
-						if (y < 0) y = 0;
-						if (y+gCard->h/2 > SCREEN_HEIGHT) y = SCREEN_HEIGHT - gCard->h/2;
-					}
-				} else if (e.type == SDL_MOUSEBUTTONUP){
-					mouseDown = false;
-				}
+				//Mouse click
+                else if (e.type == SDL_MOUSEBUTTONDOWN)	SDL_GetMouseState(&xi,&yi);
 			}//End event while loop
 
-			SDL_FillRect(gScreenSurface, NULL, SDL_MapRGB(gScreenSurface->format, 0x00, 0x00, 0x00)); //Make black to "erase" old image
-			//Apply the image stretched to Cards
-			SDL_Rect stretchRect;
+			//Clean the screen
+			SDL_RenderClear(gRenderer);
 
 
+			//Display Age and Player Number
+			SDL_RenderSetViewport(gRenderer, &AgeSpot);
+			SDL_RenderCopy(gRenderer, gAge[Age-1], NULL, NULL);
+			SDL_RenderSetViewport(gRenderer, &PlayerSpot);
+			SDL_RenderCopy(gRenderer, gNum[playerTurn-1], NULL, NULL);
+
+
+
+			//Display Cards/Selection
+			for (int i = 0; i<numCards; i++){
+				gCard = gCards[0];
+				if ((Card[i].x<xi && xi< Card[i].x+Card[i].w && Card[i].y<yi && yi < Card[i].y+Card[i].w) || cardSelect==i+1) {gCard = gCards[1]; cardSelect = i+1;}
+				SDL_RenderSetViewport(gRenderer, &Card[i]);
+				SDL_RenderCopy(gRenderer, gCard, NULL, NULL);
+			}
+
+
+			//Display Button/Selection
+			gButton = gButtons[0];
+			if ((Button2.x<xi && xi< Button2.x+Button2.w && Button2.y<yi && yi < Button2.y+Button2.w) || buttonSelect==1) {gButton = gButtons[1]; buttonSelect = 1;}
+					SDL_RenderSetViewport(gRenderer, &Button2);
+					SDL_RenderCopy(gRenderer, gButton, NULL, NULL);
+			gButton = gButtons[2];
+			if ((Button3.x<xi && xi< Button3.x+Button3.w && Button3.y<yi && yi < Button3.y+Button3.w) || buttonSelect==2) {gButton = gButtons[3]; buttonSelect = 2;}
+					SDL_RenderSetViewport(gRenderer, &Button3);
+					SDL_RenderCopy(gRenderer, gButton, NULL, NULL);
+			gButton = gButtons[4];
+			if ((Button4.x<xi && xi< Button4.x+Button4.w && Button4.y<yi && yi < Button4.y+Button4.w) || buttonSelect==3) {gButton = gButtons[5]; buttonSelect = 3;}
+					SDL_RenderSetViewport(gRenderer, &Button4);
+					SDL_RenderCopy(gRenderer, gButton, NULL, NULL);
+
+			//Conditionally display next player turn.
 			if (cardSelect!=0 && buttonSelect!=0){
-				stretchRect.x = 3*gButton->w+110; //Set x,y image start position (0,0 is upper left)
-				if (stretchRect.x<xi && xi< stretchRect.x+stretchRect.w && stretchRect.y<yi && yi < stretchRect.y+stretchRect.w && reset==true) {
+				if (Button1.x<xi && xi< Button1.x+Button1.w && Button1.y<yi && yi < Button1.y+Button1.w && reset==true) {
 					cardSelect=0;
 					buttonSelect=0;
 					reset = false;
+					if (playerTurn==numPlayers){
+						playerTurn=0;
+						numCards--;
+						if (numCards == 1){
+							numCards=7;
+							Age++;
+						}
+					}
+					playerTurn++;
 				} else {
-					SDL_BlitScaled(gButton, NULL, gScreenSurface, &stretchRect);
+					SDL_RenderSetViewport(gRenderer, &Button1);
+					SDL_RenderCopy(gRenderer, gButtons[6], NULL, NULL);
 					reset = true;
 				}
 			}
-			gButton = gButtons[0];
-
-
-			stretchRect.x = 20; //Set x,y image start position (0,0 is upper left)
-			stretchRect.y = SCREEN_HEIGHT-gCard->h/2;
-			stretchRect.w = gCard->w/2;//SCREEN_WIDTH/2; //Make the image fill a quarter of the window
-			stretchRect.h = gCard->h/2;//SCREEN_HEIGHT/2;
-			if ((stretchRect.x<xi && xi< stretchRect.x+gCard->w/2 && stretchRect.y<yi && yi < stretchRect.y+gCard->h/2) || cardSelect==1) {gCard = gCards[1]; cardSelect = 1;}
-			SDL_BlitScaled(gCard, NULL, gScreenSurface, &stretchRect);
-			gCard = gCards[0];
-
-			stretchRect.x = gCard->w/2+50; //Set x,y image start position (0,0 is upper left)
-			if ((stretchRect.x<xi && xi< stretchRect.x+gCard->w/2 && stretchRect.y<yi && yi < stretchRect.y+gCard->h/2) || cardSelect==2) {gCard = gCards[1]; cardSelect = 2;}
-			SDL_BlitScaled(gCard, NULL, gScreenSurface, &stretchRect);
-			gCard = gCards[0];
-
-			stretchRect.x = 2*gCard->w/2+80; //Set x,y image start position (0,0 is upper left)
-			if ((stretchRect.x<xi && xi< stretchRect.x+gCard->w/2 && stretchRect.y<yi && yi < stretchRect.y+gCard->h/2) || cardSelect==3) {gCard = gCards[1]; cardSelect = 3;}
-			SDL_BlitScaled(gCard, NULL, gScreenSurface, &stretchRect);
-			gCard = gCards[0];
-
-			//Apply to Buttons
-			stretchRect.x = 20; //Set x,y image start position (0,0 is upper left)
-			stretchRect.y = 0;
-			stretchRect.w = gButton->w;//SCREEN_WIDTH/2; //Make the image fill a quarter of the window
-			stretchRect.h = gButton->h;//SCREEN_HEIGHT/2;
-
-			if ((stretchRect.x<xi && xi< stretchRect.x+stretchRect.w && stretchRect.y<yi && yi < stretchRect.y+stretchRect.h) || buttonSelect==1) {gButton = gButtons[1]; buttonSelect = 1;}
-			SDL_BlitScaled(gButton, NULL, gScreenSurface, &stretchRect);
-			gButton = gButtons[2];
-
-			stretchRect.x = gButton->w+50; //Set x,y image start position (0,0 is upper left)
-			if ((stretchRect.x<xi && xi< stretchRect.x+stretchRect.w && stretchRect.y<yi && yi < stretchRect.y+stretchRect.w) || buttonSelect==2) {gButton = gButtons[3]; buttonSelect = 2;}
-			SDL_BlitScaled(gButton, NULL, gScreenSurface, &stretchRect);
-			gButton = gButtons[4];
-
-			stretchRect.x = 2*gButton->w+80; //Set x,y image start position (0,0 is upper left)
-			if ((stretchRect.x<xi && xi< stretchRect.x+stretchRect.w && stretchRect.y<yi && yi < stretchRect.y+stretchRect.w) || buttonSelect==3) {gButton = gButtons[5]; buttonSelect = 3;}
-			SDL_BlitScaled(gButton, NULL, gScreenSurface, &stretchRect);
-			gButton = gButtons[2];
-
-
-
 
 			//Update the surface
-			SDL_UpdateWindowSurface(gWindow);
+			SDL_RenderPresent(gRenderer);
 
 		}//End main while loop
 
@@ -196,7 +177,15 @@ bool init(){
 			success = false;
 		} else {
 			//Get window surface
-			gScreenSurface = SDL_GetWindowSurface(gWindow);
+			gRenderer = SDL_CreateRenderer(gWindow,-1,0);
+			if (gRenderer==NULL){
+				cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
+				success = false;
+			} else {
+				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0x00);
+
+				gScreenSurface = SDL_GetWindowSurface(gWindow);
+			}
 		}
 	}
 
@@ -210,11 +199,34 @@ bool loadMedia(){
 	//Success flag
 	bool success = true;
 
+	//SDL_Texture * SDL_ConvertSurfaceFormat(IMG_Load("card.jpg"), gScreenSurface->format, 0);//
 	//Load image
 	gCards.push_back(NULL);//resize(2);
 	gCards.push_back(NULL);//resize(2);
-	gCards[0] = loadSurface("Images/7_wonders.bmp");
-	gCards[1] = loadSurface("Images/7_wonders1.bmp");
+	gAge.push_back(NULL);//resize(2);
+	gAge.push_back(NULL);//resize(2);
+	gAge.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gNum.push_back(NULL);//resize(2);
+	gCards[0] = loadTexture("Images/7_wonders.jpg");
+	gCards[1] = loadTexture("Images/7_wonders1.jpg");
+	gAge[0] = loadTexture("Images/Age1.jpg");
+	gAge[1] = loadTexture("Images/Age2.jpg");
+	gAge[2] = loadTexture("Images/Age3.jpg");
+	gNum[0] = loadTexture("Images/Num1.jpg");
+	gNum[1] = loadTexture("Images/Num2.jpg");
+	gNum[2] = loadTexture("Images/Num3.jpg");
+	gNum[3] = loadTexture("Images/Num4.jpg");
+	gNum[4] = loadTexture("Images/Num5.jpg");
+	gNum[5] = loadTexture("Images/Num6.jpg");
+	gNum[6] = loadTexture("Images/Num7.jpg");
+
+
 
 cout << "Cards" << endl;
 	gButtons.push_back(NULL);//resize(2);
@@ -223,12 +235,14 @@ cout << "Cards" << endl;
 	gButtons.push_back(NULL);//resize(2);
 	gButtons.push_back(NULL);//resize(2);
 	gButtons.push_back(NULL);//resize(2);
-	gButtons[0] = loadSurface("Images/PlayButtonU.bmp");
-	gButtons[1] = loadSurface("Images/PlayButtonS.bmp");
-	gButtons[2] = loadSurface("Images/WonderButtonU.bmp");
-	gButtons[3] = loadSurface("Images/WonderButtonS.bmp");
-	gButtons[4] = loadSurface("Images/CoinU.bmp");
-	gButtons[5] = loadSurface("Images/CoinS.bmp");
+	gButtons.push_back(NULL);//resize(2);
+	gButtons[0] = loadTexture("Images/PlayButtonU.jpg");
+	gButtons[1] = loadTexture("Images/PlayButtonS.jpg");
+	gButtons[2] = loadTexture("Images/WonderButtonU.jpg");
+	gButtons[3] = loadTexture("Images/WonderButtonS.jpg");
+	gButtons[4] = loadTexture("Images/CoinU.jpg");
+	gButtons[5] = loadTexture("Images/CoinS.jpg");
+	gButtons[6] = loadTexture("Images/NextButton.jpg");
 cout << "buttons" << endl;
 
 	return success;
@@ -238,15 +252,23 @@ cout << "buttons" << endl;
 //Shut down the SDL and free the surfaces to avoid memory leaks
 void close(){
 
+//	SDL_DestroyTexture(gTexture);
+//	gTexture = NULL;
+
+	SDL_DestroyRenderer(gRenderer);
+	gRenderer = NULL;
+
 	//Deallocate surface
-	SDL_FreeSurface(gCard);
-	gCard = NULL;
+//	SDL_FreeSurface(gCard);
+//	SDL_DestroyTexture(gCard);
+//	gCard = NULL;
 
 	//Destroy window
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 
 	//Quit SDL
+	IMG_Quit();
 	SDL_Quit();
 
 }
@@ -273,5 +295,25 @@ SDL_Surface* loadSurface(std::string path){
 	}
 
 	return optimizedSurface;
+}
+
+SDL_Texture* loadTexture(string path){
+
+	SDL_Texture* newTexture = NULL;
+
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+
+	if (loadedSurface == NULL){
+		cout << "Unable to load image " << path << "! SDL_Error: " << SDL_GetError() << endl;
+	} else {
+		newTexture = SDL_CreateTextureFromSurface(gRenderer,loadedSurface);
+		if(newTexture == NULL){
+			cout << "Unable to create texture from " << path << "! SDL Error: " << SDL_GetError() << endl;
+		}
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	return newTexture;
+
 }
 
