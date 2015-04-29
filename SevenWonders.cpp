@@ -32,6 +32,22 @@ SevenWonders::SevenWonders( int np ){
 
 
 void SevenWonders::newGame(){
+
+	//Create new decks, for Age 1, 2, and 3
+	Deck newDeck1(numPlayers,1);
+	Deck newDeck2(numPlayers,2);
+	Deck newDeck3(numPlayers,3);
+
+	newDeck1.shuffle();
+	AgeDeck[0]=(newDeck1);
+	newDeck2.shuffle();
+	AgeDeck[1]=(newDeck2);
+	newDeck3.shuffle();
+	AgeDeck[2]=(newDeck3);
+
+	players.clear();
+	discardPile.clearCard();
+
 	srand( time(0) );
 	string name;
       	int w;
@@ -96,12 +112,7 @@ void SevenWonders::newGame(){
 
 	//Psuedo player for hand passing
 	players.push_back(playerone);
-	//delete DeckPtr;
-	//DeckPtr = new Deck;
-
-	//DeckPtr->init(Age, numPlayers);
 	SevenWonders::advanceAge();
-	cout << "exit constructor" <<endl;
 }
 
 bool SevenWonders::nextPlayer(){
@@ -142,17 +153,13 @@ int SevenWonders::getAge(){
 bool SevenWonders::advanceAge(){
 	PlayerTurn = 1;
 	Age++;
-	cout << "Age:" << Age << endl;
-
 	if (Age>0 && Age<=3){
 		for (int i=0; i<numPlayers; i++) {
 			if (Age>1) discardPile.addCard(players[i].clearHand());
 			for (int j=0; j<7; j++)	players[i].dealtoHand(AgeDeck[Age-1].dealCard() );
 		}
 	}
-	cout << discardPile << endl;
 	return (Age>3);
-
 }
 
 
@@ -203,7 +210,7 @@ void SevenWonders::calcWinner() {
   int tie = 0;
   vector<Player>::iterator it = players.begin();
   cout << "Players:     Score:" << endl;
-  for ( it; it != players.end(); ++it ) {
+  for ( it; it != players.end()-1; ++it ) {
     cout << "Player " << pnum << ":	" << it->getScore() << endl;
     if ( it->getScore() == highscore ) {
       tie = 1;

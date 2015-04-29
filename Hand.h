@@ -16,7 +16,6 @@ public:
 	int gethandID(); //returns the handID
 	int selectCard(int); //when user selects a card to use
 	int discardCard(int); //discard specified card
-	string getInfo(int); //returns the card description
 	void clearHand(); // clears Hand vector
 private:
 	int handID; //player 1, 2, 3, etc.

@@ -16,7 +16,7 @@ int main() {
 
 		if ( !cin.fail() && numPlayers <= 5 && numPlayers >= 3 ) { //checks if int and < 5 and > 3
 			while ( 1 ) { //confirmation of numPlayers
-				cout << numPlayers << " players entered. Are you sure? (y/n)\n";
+				cout << numPlayers << " players entered. Are you sure? (y/n) ";
 				cin >> input;
 
 				if ( input == "y" ) {
@@ -36,13 +36,11 @@ int main() {
 	}
 
 	SevenWonders Game( numPlayers );
-	cout << "before new game" << endl;
 	Game.newGame();
-	cout << "after new game" << endl;
 
 
 	/**Game Driver**/
-	cout << "Welcome to Age " << Game.getAge() << "." << endl;
+	cout << endl << "Welcome to Age " << Game.getAge() << "." << endl << endl;
 	while (!exit){
 
 		cout << "It is Player " << Game.getPlayerTurn() << "'s turn." << endl;
@@ -62,9 +60,9 @@ int main() {
 
 				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
 					while ( 1 ) { //confirmation of cardPos
-						cout << "Are you sure you want to play card #" << cardPos << "? (y/n)\n";
+						cout << "Are you sure you want to play card #" << cardPos << "? (y/n) ";
 						cin >> input;
-		
+
 						if ( input == "y" ) {
 							check = 0;
 							break;
@@ -97,9 +95,9 @@ int main() {
 
 				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
 					while ( 1 ) { //confirmation of cardPos
-						cout << "Are you sure you want to discard card #" << cardPos << "? (y/n)\n";
+						cout << "Are you sure you want to discard card #" << cardPos << "? (y/n) ";
 						cin >> input;
-		
+
 						if ( input == "y" ) {
 							check = 0;
 							break;
@@ -151,8 +149,8 @@ int main() {
 						cout << "Choose number of players: ";
 						cin >> numPlayers;
 					}
+					Game.setNumPlayers(numPlayers);
 					Game.newGame();
-					exit = Game.advanceAge();
 					cout << "Welcome to Age " << Game.getAge() << "." << endl;
 				} // what if press n or something else
 			}

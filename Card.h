@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <deque>
+#include <string>
 using namespace std;
 
 class Card {
@@ -17,6 +18,7 @@ public:
 	int checkEmpty(); //returns true (1) when cards vector is empty
 	int returnCard(int cardNum);
 	int clearCard();
+	string getInfo(int);
 	int dealCard();
 protected:
 	deque<int> cards;

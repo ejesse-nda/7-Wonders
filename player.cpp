@@ -20,6 +20,8 @@ Player::Player( int t, int w ) : wond(w, t) {
         srand( time(0) );
 	score = 3; // number of coins initially
 	coins = 3;
+	victory = 0;
+	military = 0;
 
 	for (int i = 0; i < 4; ++i) {
 		resources.push_back(0);
@@ -92,7 +94,6 @@ void Player::checkCard(int ID) {
 	type = line.substr(0, line.size() - 1);
 	inFile >> line;
 	value = atoi(line.substr(0, line.size() - 1).c_str());
-	cout << "t: " << type << " v: " << value << endl;
 
 	addResource(type, value);
 }
