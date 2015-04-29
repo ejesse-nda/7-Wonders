@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "player.h"
 #include "wonder.h"
 
@@ -77,4 +78,10 @@ Wonder::Wonder( int w, int p ) {
 // returns score multiplier
 int Wonder::getMult() {
   return ( WonderLevel + WonderBonus );
+}
+
+// displays the information for the wonder
+void Wonder::displayWonder() {
+  cout << "Wonder: " << setw(30) << setiosflags(ios::left) << name << "Level: " 
+       << setw(6) << WonderLevel << "Bonus: " << WonderBonus << endl;
 }

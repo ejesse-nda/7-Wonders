@@ -44,7 +44,6 @@ class Player {
 		int score;
 		int victory;
 		int military;
-//		int playerturn;
 		int coins;
 		vector<int> resources; // Card instead of int
 		int calcScore();
