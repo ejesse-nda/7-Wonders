@@ -193,7 +193,7 @@ void SevenWonders::calcWinner() {
   int pnum = 1;
   vector<Player>::iterator it = players.begin();
   cout << "Players:     Score:" << endl;
-  for ( it; it != players.end(); it++ ) {
+  for ( it; it != players.end(); ++it ) {
     cout << "Player " << pnum << ":	" << it->getScore() << endl;
     if ( it->getScore() > highscore ) {
       highscore = it->getScore();
