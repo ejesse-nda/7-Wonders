@@ -187,7 +187,7 @@ void SevenWonders::disCard(int cardNum){
 
 // returns hand size
 int SevenWonders::getHandSize() {
-  return (PlayerTurn - 1);
+  return players[PlayerTurn - 1].getHandSize();
 }
 
 

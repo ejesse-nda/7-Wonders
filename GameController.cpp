@@ -53,18 +53,32 @@ int main() {
 		cin >> move;
 
 		if ( move == "p" ) {
-			cout << "Select card (by position).\n"
-			while ( 1 ) {
+			check = 1;
+
+			while ( check ) {
+				cout << "Select a card (by position).\n";
 				cin >> cardPos;
 
 				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
-					break;
+					while ( 1 ) { //confirmation of cardPos
+						cout << "Are you sure you want to play card #" << cardPos << "? (y/n)\n";
+						cin >> input;
+		
+						if ( input == "y" ) {
+							check = 0;
+							break;
+						}
+						else if ( input == "n" ) {
+							break;
+						}
+					}
 				}
 				else {
 					cout << "Select an appropriate card (by position).\n";
 					cin.clear();
 					cin.ignore(1000000, '\n');
 				}
+
 			}
 			Game.playCard( cardPos );
 			cout << "In hand:" << Game.getPlayerHand( Game.getPlayerTurn() );
@@ -73,7 +87,32 @@ int main() {
 			nextAge = Game.nextPlayer();
 		}
 		else if ( move == "c" ) {
-			cin >> cardPos;
+			check = 1;
+
+			while ( check ) {
+				cout << "Select a card (by position).\n";
+				cin >> cardPos;
+
+				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
+					while ( 1 ) { //confirmation of cardPos
+						cout << "Are you sure you want to discard card #" << cardPos << "? (y/n)\n";
+						cin >> input;
+		
+						if ( input == "y" ) {
+							check = 0;
+							break;
+						}
+						else if ( input == "n" ) {
+							break;
+						}
+					}
+				}
+				else {
+					cout << "Select an appropriate card (by position).\n";
+					cin.clear();
+					cin.ignore(1000000, '\n');
+				}
+			}
 
 			Game.disCard( cardPos - 1 );
 			cout << "In hand:	" << Game.getPlayerHand( Game.getPlayerTurn() );
