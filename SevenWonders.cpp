@@ -2,6 +2,7 @@
 #include <ctime>	// time
 #include <cstdlib>	// srand and ran
 #include <vector>
+#include <algorithm>
 #include "SevenWonders.h"
 #include "player.h"
 #include "Deck.h"
@@ -36,56 +37,59 @@ void SevenWonders::newGame(){
       	int w;
 	Age = 0;
 	PlayerTurn = 1;
-	vector<int> wonders(7, 0);
+	// initialize vector
+	vector<int> wonders;
+	for ( int i = 0; i < 7; i++ ) {
+	  wonders.push_back( i );
+	}
+	random_shuffle( wonders.begin(), wonders.end() );
 
 // player 1
-	w = rand() % 6;
-	wonders[w] = 1;
+	w = wonders.back();
+	wonders.pop_back();
 	Player playerone( 1, w+1 );
     players.push_back( playerone );
 
 // player 2
-	while ( wonders[w] ) w = rand() % 6;
+	w = wonders.back();
+	wonders.pop_back();
 	Player playertwo( 2, w+1 );
 	players.push_back( playertwo );
 
 // player 3
-	while ( wonders[w] ) w = rand() % 6;
+	w = wonders.back();
+	wonders.pop_back();
 	Player playerthree( 3, w+1 );
 	players.push_back( playerthree );
 
 // player 4
 	if ( numPlayers >= 4 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player four please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playerfour( 4, w+1 );
 	  players.push_back( playerfour );
 	}
 
 // player 5
 	if ( numPlayers >= 5 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player five please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playerfive( 5, w+1 );
 	  players.push_back( playerfive );
 	}
 
 // player 6
 	if ( numPlayers >= 6 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player six please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playersix( 6, w+1 );
 	  players.push_back( playersix );
 	}
 
 // player 7
 	if ( numPlayers == 7 ) {
-	  while ( wonders[w] ) w = rand() % 6;
-	  //cout << "Player seven please enter your name: ";
-	  //cin >> name;
+	  w = wonders.back();
+	  wonders.pop_back();
 	  Player playerseven( 7, w+1 );
 	  players.push_back( playerseven );
 	}
@@ -185,25 +189,37 @@ void SevenWonders::disCard(int cardNum){
 
 }
 
+// returns hand size
+int SevenWonders::getHandSize() {
+  return players[PlayerTurn - 1].getHandSize();
+}
+
 
 // Calculates the winner of the game
 void SevenWonders::calcWinner() {
   int highscore = 0;
   int winner = 0;
   int pnum = 1;
+  int tie = 0;
   vector<Player>::iterator it = players.begin();
   cout << "Players:     Score:" << endl;
-  for ( it; it != players.end(); it++ ) {
+  for ( it; it != players.end(); ++it ) {
     cout << "Player " << pnum << ":	" << it->getScore() << endl;
-    if ( it->getScore() > highscore ) {
+    if ( it->getScore() == highscore ) {
+      tie = 1;
+    } else if ( it->getScore() > highscore ) {
       highscore = it->getScore();
       winner = pnum;
+      tie = 0;
     }
     pnum++;
   }
 
-// display winner
-  cout << "Player " << winner << " has won the game!" << endl;
+  if ( tie ) {
+    cout << "There has been a tie!" << endl;
+  } else {
+    cout << "Player " << winner << " has won the game!" << endl;
+  }
 } 
 
 

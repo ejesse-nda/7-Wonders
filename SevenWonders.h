@@ -21,6 +21,7 @@ class SevenWonders{
 		Hand getPlayerHand(int i);
 		Hand getPlayerPlayed(int i);
 		int getPlayerCoin(int i);
+ 		int getHandSize();
 
 		void playCard(int cardNum);
 		void disCard(int cardNum);

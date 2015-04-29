@@ -1,14 +1,25 @@
-00/1/1/"Adds one wood resource."
-01/2/1/"Adds one ore resource."
-02/3/1/"Adds one clay resource."
-03/4/1/"Adds one brick resource."
-04/1/2/"Adds two wood resources."
-05/2/2/"Adds two ore resources."
-06/3/2/"Adds two clay resources."
-07/4/2/"Adds two brick resources."
-08/5/2/"Adds two military."
-09/0/2/"Adds two victory points."
+00/	b/	1/	w/	1/	0x/	xx/	"Lumber Yard"/
+01/	b/	1/	s/	1/	0x/	xx/	"Stone Pit"/
+02/	b/	1/	b/	1/	0x/	xx/	"Clay Pool"/
+03/	b/	1/	o/	1/	0x/	xx/	"Ore Vein"/
+04/	b/	1/	wb/	1/	1c/	xx/	"Tree Farm"/
+05/	b/	1/	sb/	1/	1c/	xx/	"Excavation"/
+06/	b/	1/	bo/	1/	1c/	xx/	"Clay Pit"/
+07/	b/	1/	sw/	1/	1c/	xx/	"Timber Yard"/
+08/	b/	1/	wo/	1/	1c/	xx/	"Forest Cave"/
+09/	b/	1/	os/	1/	1c/	xx/	"Mine"/
+10/	l/	1/	v/	1/	0x/	xx/ "Pawnshop"/
+11/	l/	1/	v/	1/	1s/	xx/	"Baths"/
+12/	l/	1/	v/	1/	0x/	xx/	"Altar"/
+13/	l/	1/	v/	1/	0x/	xx/	"Theater"/
+14/	r/	1/	m/	1/	0x/	xx/	"Stockade"/
+15/	r/	1/	m/	1/	1o/	xx/	"Barracks"/
+16/	r/	1/	m/	1/	1b/	xx/	"Guard Tower"/
+17/	g/	1/	c/	1/	0x/	xx/	"Tavern"/
+18/	/	/	/	/	/	/	""/
+19/	/	/	/	/	/	/	""/
+20/	/	/	/	/	/	/	""/
 
-/*database.txt*/
-//0: victory 1: wood 2: ore 3: clay 4:brick 5:military//
-//ID/TYPE/INCREMENT/DESCRIPTION//
+ID / Color / Age / Resources / Value / Requirements / Free Card ID / Name
+Colors: Brown / Gold / Red / bLue
+Resources: Victory / Military / Coin / Wood / Stone / Ore / Brick
