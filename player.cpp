@@ -28,6 +28,7 @@ Player::Player( int t, int w ) : wond(w, t) {
 
 
 int Player::getScore() {
+	score = coins + victory + military;
 	return ( score + wond.getMult() );
 }
 
@@ -140,4 +141,9 @@ Hand Player::getPlayed(){
 
 	return inPlay;
 
+}
+
+
+void Player::showWonder() {
+	wond.displayWonder();
 }
