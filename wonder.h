@@ -14,6 +14,7 @@
 class Wonder {
 	public:
 		Wonder( int, int ); // non-default constructor
+		int getMult();
 		//getInfo(); //pulls from the database
 		//displayWonder(); //displays the Wonder name and information
 

@@ -16,13 +16,10 @@
 using namespace std;
 
 // non-default constructor
-Player::Player( int t, int w ) {
+Player::Player( int t, int w ) : wond(w, t) {
         srand( time(0) );
-	//name = n;
 	score = 3; // number of coins initially
-//	playerturn = t;
 	coins = 3;
-	Wonder( w, t );
 
 	for (int i = 0; i < 4; ++i) {
 		resources.push_back(0);
@@ -31,12 +28,8 @@ Player::Player( int t, int w ) {
 
 
 int Player::getScore() {
-	return score;
+	return ( score + wond.getMult() );
 }
-
-/*int Player::getTurn() {
-	return playerturn;
-}// */
 
 int Player::getCoins() {
 	return coins;
@@ -148,13 +141,3 @@ Hand Player::getPlayed(){
 	return inPlay;
 
 }
-
-
-
-/* not in Hand class
-void Player::clearPlayed(){
-
-	inPlay.clear();
-
-}
-*/

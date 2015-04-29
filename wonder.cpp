@@ -72,3 +72,9 @@ Wonder::Wonder( int w, int p ) {
       break;
   }
 }
+
+
+// returns score multiplier
+int Wonder::getMult() {
+  return ( WonderLevel + WonderBonus );
+}

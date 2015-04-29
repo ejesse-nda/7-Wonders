@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include "Hand.h"
+#include "wonder.h"
 
 using namespace std;
 
@@ -47,7 +48,7 @@ class Player {
 		int coins;
 		vector<int> resources; // Card instead of int
 		int calcScore();
-		//Wonder wond;
+		Wonder wond;
 		int playPlayerCard( int ); // moves playerHand card to inPlay
 
 		Hand inPlay;
