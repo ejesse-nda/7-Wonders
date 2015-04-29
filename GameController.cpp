@@ -8,29 +8,30 @@ int main() {
 	bool exit = false;
 	bool nextAge;
 	int numPlayers, cardPos, check = 1;
-	char input;
-	string newgame, move;
+	string newgame, move, input;
 
 	while ( check ) { //select number of players
 		cout << "Choose number of players (3-5 players only): ";
 		cin >> numPlayers;
 
-		if ( cin.fail() || numPlayers > 5 || numPlayers < 3 ) { //checks if int and < 5 and > 3
-			cout << "Please enter an appropriate number of players (3-5 players only).\n";
-		}
-		else {
+		if ( !cin.fail() && numPlayers <= 5 && numPlayers >= 3 ) { //checks if int and < 5 and > 3
 			while ( 1 ) { //confirmation of numPlayers
 				cout << numPlayers << " players entered. Are you sure? (y/n)\n";
 				cin >> input;
 
-				if ( input == 'y' ) {
+				if ( input == "y" ) {
 					check = 0;
 					break;
 				}
-				else if ( input == 'n' ) {
+				else if ( input == "n" ) {
 					break;
 				}
 			}
+		}
+		else { //check for invalid input and flush cin
+			cout << "Please enter an appropriate number of players (3-5 players only).\n";
+			cin.clear();
+			cin.ignore(1000000, '\n');
 		}
 	}
 
@@ -45,27 +46,30 @@ int main() {
 	while (!exit){
 
 		cout << "It is Player " << Game.getPlayerTurn() << "'s turn." << endl;
-		cout << "Hand:		" << Game.getPlayerHand( Game.getPlayerTurn() );
-		cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
+		cout << "Hand:	" << Game.getPlayerHand( Game.getPlayerTurn() ); //print hand
+		cout << "Coins:	" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 
 		cout << "Move (p/c/w/o/e/n): ";
 		cin >> move;
 
 		if ( move == "p" ) {
-			while (1) {
+			cout << "Select card (by position).\n"
+			while ( 1 ) {
 				cin >> cardPos;
 
-				if ( cin.fail() || cardPos < 1 || cardPos > Game.getHandSize() ) {
-					cout << "Select an appropriate card (by position).\n";
+				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
+					break;
 				}
 				else {
-					break;
+					cout << "Select an appropriate card (by position).\n";
+					cin.clear();
+					cin.ignore(1000000, '\n');
 				}
 			}
 			Game.playCard( cardPos );
-			cout << "In hand:	" << Game.getPlayerHand( Game.getPlayerTurn() );
-			cout << "In play:	" << Game.getPlayerPlayed( Game.getPlayerTurn() );
-			cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
+			cout << "In hand:" << Game.getPlayerHand( Game.getPlayerTurn() );
+			cout << "In play:" << Game.getPlayerPlayed( Game.getPlayerTurn() );
+			cout << "Coins:	" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 			nextAge = Game.nextPlayer();
 		}
 		else if ( move == "c" ) {
