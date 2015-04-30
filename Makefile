@@ -1,4 +1,4 @@
-all: 7Ws GUI
+all: 7Ws
 
 7Ws: CardDeck.o player.o GameController.o SevenWonders.o wonder.o Card.o Deck.o Hand.o
 	g++ player.o GameController.o SevenWonders.o wonder.o Card.o Hand.o Deck.o -o 7Ws
