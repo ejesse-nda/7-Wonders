@@ -100,5 +100,7 @@ string Card::getInfo(int n) { //its a monster
         string::size_type leftpos = line.find_first_of("\"") + 1;
         string::size_type rightpos = line.find_last_of("\"");
 
+		inFile.close();
+
         return line.substr(leftpos, rightpos - leftpos);
 }

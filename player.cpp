@@ -96,6 +96,8 @@ void Player::checkCard(int ID) {
 	value = atoi(line.substr(0, line.size() - 1).c_str());
 
 	addResource(type, value);
+
+	inFile.close();
 }
 
 

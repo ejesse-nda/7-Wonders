@@ -31,24 +31,6 @@ int Hand::discardCard(int n) {
         return ID;
 }
 
-string Hand::getInfo(int n) { //its a monster
-        int ID = n; //cards[n];
-        string line;
-
-        fstream inFile("database.txt");
-
-        inFile.seekg(ios::beg);
-        for (int i = 0; i < ID; ++i) {
-                inFile.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        getline(inFile, line);
-
-        string::size_type leftpos = line.find_first_of("\"") + 1;
-        string::size_type rightpos = line.find_last_of("\"");
-
-        return line.substr(leftpos, rightpos - leftpos);
-}
-
 void Hand::clearHand() {
         cards.clear();
 }

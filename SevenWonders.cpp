@@ -1,3 +1,10 @@
+//
+// File: SevenWonders.cpp
+// CSE20212, Sp2015
+//
+// Description: The instantiation of the 7Wonders/Game object. The game object
+//   contains functions typical to the game (next player turn, discarding, etc.)
+
 #include <string>
 #include <ctime>	// time
 #include <cstdlib>	// srand and ran
@@ -11,7 +18,7 @@
 //Constructor
 SevenWonders::SevenWonders( int np ){
 
-
+	//Dummy settings to be fixed in newGame
 	Age = 0;
 	PlayerTurn = 1;
 	numPlayers = np;
@@ -21,16 +28,15 @@ SevenWonders::SevenWonders( int np ){
 	Deck newDeck2(numPlayers,2);
 	Deck newDeck3(numPlayers,3);
 
-	newDeck1.shuffle();
+	//Create Age Deck vector(decks will be chuffled in newGame)
 	AgeDeck.push_back(newDeck1);
-	newDeck2.shuffle();
 	AgeDeck.push_back(newDeck2);
-	newDeck3.shuffle();
 	AgeDeck.push_back(newDeck3);
 
 }
 
 
+//Start a new game
 void SevenWonders::newGame(){
 
 	//Create new decks, for Age 1, 2, and 3
@@ -38,6 +44,7 @@ void SevenWonders::newGame(){
 	Deck newDeck2(numPlayers,2);
 	Deck newDeck3(numPlayers,3);
 
+	//Shuffle decks then add to Age Deck vector
 	newDeck1.shuffle();
 	AgeDeck[0]=(newDeck1);
 	newDeck2.shuffle();
@@ -45,6 +52,7 @@ void SevenWonders::newGame(){
 	newDeck3.shuffle();
 	AgeDeck[2]=(newDeck3);
 
+	//clear players(which clears the hands and played too) and any old discard
 	players.clear();
 	discardPile.clearCard();
 
@@ -115,11 +123,14 @@ void SevenWonders::newGame(){
 	SevenWonders::advanceAge();
 }
 
+
+//Advance to next player. Returns whether to advance the age.
 bool SevenWonders::nextPlayer(){
 	PlayerTurn++;
 	if (PlayerTurn>numPlayers) {
 		PlayerTurn = 1;
-		int x= 1-(Age%2);
+		resolveTurn();
+		int x = 1-(Age%2);
 		if (x==0) {
 			players[numPlayers].takeHand(players[0]);
 			for(int i=0; i<numPlayers; i++){
@@ -137,17 +148,41 @@ bool SevenWonders::nextPlayer(){
 	return (PlayerTurn==1 && players[0].getHandSize()==1);
 }
 
+
+//Set the number of players
 void SevenWonders::setNumPlayers(int newNum){
 	numPlayers = newNum;
 }
 
+
+//Return current player's turn
 int SevenWonders::getPlayerTurn(){
 	return PlayerTurn;
 }
 
+
+//Return the current Age
 int SevenWonders::getAge(){
 	return Age;
 }
+
+
+//Play all cards/Discards in queue
+void SevenWonders::resolveTurn(){
+	//Store turn. PlayTurn decides which player to use playCard/disCard on.
+	int temp = PlayerTurn;
+	PlayerTurn = 1;
+	for (int i=0; i<toBePlayed.size(); i++){
+		if (toBe[i]==1)	playCard(toBePlayed[i]);
+		else disCard(toBePlayed[i]);
+		PlayerTurn++;
+	}
+	//Clear queue and put PlayerTurn back
+	toBePlayed.clear();
+	toBe.clear();
+	PlayerTurn = temp;
+}
+
 
 
 bool SevenWonders::advanceAge(){
@@ -163,38 +198,52 @@ bool SevenWonders::advanceAge(){
 }
 
 
+
 Hand SevenWonders::getPlayerHand(int i){
-
 	return players[i-1].getHand();
-
 }
 
 
+//
 Hand SevenWonders::getPlayerPlayed(int i){
-
 	return players[i-1].getPlayed();
-
 }
 
 
+//
 int SevenWonders::getPlayerCoin(int i){
 	return players[i-1].getCoins();
 }
 
-void SevenWonders::playCard(int cardNum){
 
-	players[PlayerTurn-1].dealPlayed(cardNum);
-
+//
+void SevenWonders::queuePlayCard(int cardNum){
+	toBePlayed.push_back(cardNum);
+	toBe.push_back(1);
 }
 
-void SevenWonders::disCard(int cardNum){
 
+//
+void SevenWonders::playCard(int cardNum){
+	players[PlayerTurn-1].dealPlayed(cardNum);
+}
+
+
+//
+void SevenWonders::queueDiscard(int cardNum){
+	toBePlayed.push_back(cardNum);
+	toBe.push_back(0);
+}
+
+
+//
+void SevenWonders::disCard(int cardNum){
 	Hand Temp = players[PlayerTurn-1].getHand();
 	discardPile.addCard(Temp.returnCard(cardNum));
 
 	players[PlayerTurn-1].addCoins(cardNum);
-
 }
+
 
 // returns hand size
 int SevenWonders::getHandSize() {
@@ -227,8 +276,4 @@ void SevenWonders::calcWinner() {
   } else {
     cout << "Player " << winner << " has won the game!" << endl;
   }
-} 
-
-
-
-
+}

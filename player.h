@@ -38,7 +38,7 @@ class Player {
 
 		void checkCard(int);
 		void addResource(string, int);
-		
+
 		void showWonder();
 
 	private:

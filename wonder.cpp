@@ -82,6 +82,6 @@ int Wonder::getMult() {
 
 // displays the information for the wonder
 void Wonder::displayWonder() {
-  cout << "Wonder: " << setw(30) << setiosflags(ios::left) << name << "Level: " 
+  cout << "Wonder: " << setw(30) << setiosflags(ios::left) << name << "Level: "
        << setw(6) << WonderLevel << "Bonus: " << WonderBonus << endl;
 }
