@@ -15,6 +15,7 @@ public:
 	Hand(int); //tags the hand with an ID
 	int gethandID(); //returns the handID
 	int selectCard(int); //when user selects a card to use
+	string getInfo( int );
 	int discardCard(int); //discard specified card
 	void clearHand(); // clears Hand vector
 private:
