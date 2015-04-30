@@ -52,6 +52,7 @@ int main() {
 
 		// display Wonder information
 		Game.displayWonder();
+		Game.displayResources();
 		
 		// clears move to force into loop
 		move = "0";

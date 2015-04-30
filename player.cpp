@@ -150,3 +150,11 @@ Hand Player::getPlayed(){
 void Player::showWonder() {
 	wond.display();
 }
+
+
+void Player::showResources() {
+  cout << "Wood: " << resources[0] << "     Stone: " << resources[1] << "     Brick: "
+       << resources[2] << "     Ore: " << resources[3] 
+       << "     Victory Points: " << victory << "     Military points: "
+       << military << endl << endl;
+}

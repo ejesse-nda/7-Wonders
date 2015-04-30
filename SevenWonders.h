@@ -43,6 +43,7 @@ class SevenWonders{
 
 		void calcWinner(); //Determine scores and the winner
 		void displayWonder(); // displays wonder information
+		void displayResources(); // displays resources
 
 	private:
 		int Age; //Current Age

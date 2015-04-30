@@ -40,6 +40,7 @@ class Player {
 		void addResource(string, int);
 
 		void showWonder();
+		void showResources();
 
 	private:
 		string name;
@@ -47,7 +48,7 @@ class Player {
 		int victory;
 		int military;
 		int coins;
-		vector<int> resources; // Card instead of int
+		vector<int> resources;
 		int calcScore();
 		Wonder wond;
 		int playPlayerCard( int ); // moves playerHand card to inPlay

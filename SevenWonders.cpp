@@ -283,3 +283,9 @@ void SevenWonders::calcWinner() {
 void SevenWonders::displayWonder() {
   players[PlayerTurn - 1].showWonder();
 }
+
+// displays resources
+void SevenWonders::displayResources() {
+  players[PlayerTurn - 1].showResources();
+}
+
