@@ -148,5 +148,5 @@ Hand Player::getPlayed(){
 
 
 void Player::showWonder() {
-	wond.displayWonder();
+	wond.display();
 }

@@ -16,7 +16,7 @@ class Wonder {
 		Wonder( int, int ); // non-default constructor
 		int getMult();
 		//getInfo(); //pulls from the database
-		void displayWonder(); //displays the Wonder name and information
+		void display(); //displays the Wonder name and information
 
 	private:
 		string name;

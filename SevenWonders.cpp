@@ -277,3 +277,9 @@ void SevenWonders::calcWinner() {
     cout << "Player " << winner << " has won the game!" << endl;
   }
 }
+
+
+// displays wonder information
+void SevenWonders::displayWonder() {
+  players[PlayerTurn - 1].showWonder();
+}

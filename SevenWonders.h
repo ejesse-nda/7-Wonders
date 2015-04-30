@@ -42,6 +42,7 @@ class SevenWonders{
 		void disCard(int cardNum); //Discard a card for coins
 
 		void calcWinner(); //Determine scores and the winner
+		void displayWonder(); // displays wonder information
 
 	private:
 		int Age; //Current Age

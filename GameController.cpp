@@ -55,6 +55,9 @@ int main() {
 		//Display current player's turn and current hand
 		cout << endl << "It is Player " << Game.getPlayerTurn() << "'s turn." << endl;
 		cout << "Hand:	" << Game.getPlayerHand( Game.getPlayerTurn() );
+
+		// display Wonder information
+		Game.displayWonder();
 		
 		// clears move to force into loop
 		move = "0";
