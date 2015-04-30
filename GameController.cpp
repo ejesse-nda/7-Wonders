@@ -47,7 +47,7 @@ int main() {
 		cout << "Hand:	" << Game.getPlayerHand( Game.getPlayerTurn() ); //print hand
 		cout << "Coins:	" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 
-		cout << "Move (p/c/w/e/n): ";
+		cout << "Move (p/c/e/n): ";
 		cin >> move;
 
 		/*Play a Card*/
@@ -120,9 +120,6 @@ int main() {
 			cout << "Coins:		" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
 			nextAge = Game.nextPlayer();
 		}
-		/*else if ( move == "w" ) {
-			cout << "Make Wonder" << endl;
-		}*/
 		else if ( move == "e" ) {
 			cout << "Exiting..." << endl;
 			exit = true;
