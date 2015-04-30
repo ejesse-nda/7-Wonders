@@ -1,6 +1,7 @@
 #include "SevenWonders.h"
 #include <iostream>
 #include <string>
+#include <cstdlib>
 using namespace std;
 
 int main() {
@@ -40,9 +41,12 @@ int main() {
 
 
 	/**Game Driver**/
+	//system("clear");
 	cout << endl << "Welcome to Age " << Game.getAge() << "." << endl << endl;
 	while (!exit){
 
+		system("clear");
+		cout << "Age: " << Game.getAge() << endl << endl;
 		cout << "It is Player " << Game.getPlayerTurn() << "'s turn." << endl;
 		cout << "Hand:	" << Game.getPlayerHand( Game.getPlayerTurn() ); //print hand
 		cout << "Coins:	" << Game.getPlayerCoin( Game.getPlayerTurn() ) << endl << endl;
@@ -147,7 +151,7 @@ int main() {
 						cin >> numPlayers;
 					}
 					Game.setNumPlayers(numPlayers);
-					Game.newGame();
+					Game.newGametwo();
 					cout << "Welcome to Age " << Game.getAge() << "." << endl;
 				} // what if press n or something else
 			}
