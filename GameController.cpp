@@ -151,7 +151,7 @@ int main() {
 						cin >> numPlayers;
 					}
 					Game.setNumPlayers(numPlayers);
-					Game.newGametwo();
+					Game.newGame();
 					cout << "Welcome to Age " << Game.getAge() << "." << endl;
 				} // what if press n or something else
 			}
