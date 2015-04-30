@@ -21,13 +21,7 @@ int main() {
 		cout << "Choose number of players (3-7 players only): ";
 		cin >> numPlayers;
 
-		if ( !cin.fail() && numPlayers <= 7 && numPlayers >= 3 ) { //checks if int and < 5 and > 3
-			do { //confirmation of numPlayers
-				cout << numPlayers << " players entered. Are you sure? (y/n) ";
-				cin >> input;
-			} while ( input!="y" && input!="n" );
-		}
-		else { //check for invalid input and flush cin
+		if ( cin.fail() || numPlayers > 7 || numPlayers < 3 ) { //checks if int and < 5 and > 3
 			cout << "Please enter an appropriate number of players (3-5 players only).\n";
 			cin.clear();
 			cin.ignore(1000000, '\n');
@@ -75,21 +69,12 @@ int main() {
 			while ( cardPos < 1 || cardPos > Game.getHandSize() ) {
 				cout << "Select a card (by position).\n";
 				cin >> cardPos;
-				//Confirm card to play
-				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
-					do{
-						cout << "Are you sure you want to play card #" << cardPos << "? (y/n) ";
-						cin >> input;
-					} while (input !="y" && input !="n"); //confirmation of cardPos
-
-				}
-				//Error check cardPos input
-				else {
+				// input validity
+				if ( cin.fail() || cardPos < 1 || cardPos > Game.getHandSize() ) {
 					cout << "Select an appropriate card (by position).\n";
 					cin.clear();
 					cin.ignore(1000000, '\n');
 				}
-			//Check that card is valid
 			}
 
 			//Add card to play queue
@@ -106,15 +91,8 @@ int main() {
 			while ( cardPos < 1 || cardPos > Game.getHandSize() ) {
 				cout << "Select a card to convert to coins (by position).\n";
 				cin >> cardPos;
-				//Confirm card to play
-				if ( !cin.fail() && cardPos >= 1 && cardPos <= Game.getHandSize() ) {
-					do {
-						cout << "Are you sure you want to discard card #" << cardPos << "? (y/n) ";
-						cin >> input;
-					} while (input !="y" && input !="n"); //confirmation of cardPos
-				}
-				//Error check
-				else {
+				// input validity
+				if ( cin.fail() || cardPos < 1 || cardPos > Game.getHandSize() ) {
 					cout << "Select an appropriate card (by position).\n";
 					cin.clear();
 					cin.ignore(1000000, '\n');
