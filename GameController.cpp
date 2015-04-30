@@ -138,14 +138,8 @@ int main() {
 						cout << "Choose number of players (3-7 players only): ";
 						cin >> numPlayers;
 
-						if ( !cin.fail() && numPlayers <= 7 && numPlayers >= 3 ) { //checks if int and < 5 and > 3
-							while ( input!="y" && input!="n" ) { //confirmation of numPlayers
-								cout << numPlayers << " players entered. Are you sure? (y/n) ";
-								cin >> input;
-							}
-						}
-						else { //check for invalid input and flush cin
-							cout << "Please enter an appropriate number of players (3-5 players only).\n";
+						if ( cin.fail() || numPlayers > 7 || numPlayers < 3 ) { //checks if int and < 5 and > 3
+							cout << "Please enter an appropriate number of players (3-7 players only).\n";
 							cin.clear();
 							cin.ignore(1000000, '\n');
 						}
