@@ -55,7 +55,9 @@ int main() {
 		//Display current player's turn and current hand
 		cout << endl << "It is Player " << Game.getPlayerTurn() << "'s turn." << endl;
 		cout << "Hand:	" << Game.getPlayerHand( Game.getPlayerTurn() );
-
+		
+		// clears move to force into loop
+		move = "0";
 		//Get player's move
 		while (move != "p" && move!="c" && move!="e"){
 			cout << "Move [Play Card (p), Get Coins (c), Exit Game (e)]: ";
@@ -66,7 +68,8 @@ int main() {
 		/*Play a Card*/
 		if ( move == "p" ) {
 			//Get card to play
-			do{
+			cardPos = 0;
+			while ( cardPos < 1 || cardPos > Game.getHandSize() ) {
 				cout << "Select a card (by position).\n";
 				cin >> cardPos;
 				//Confirm card to play
@@ -84,7 +87,7 @@ int main() {
 					cin.ignore(1000000, '\n');
 				}
 			//Check that card is valid
-			} while (cardPos >= 1 && cardPos <= Game.getHandSize());
+			}
 
 			//Add card to play queue
 			Game.queuePlayCard( cardPos );
@@ -96,7 +99,8 @@ int main() {
 		/*Convert Card to Coins!*/
 		else if ( move == "c" ) {
 			//Get card to turn into coins
-			do {
+			cardPos = 0;
+			while ( cardPos < 1 || cardPos > Game.getHandSize() ) {
 				cout << "Select a card to convert to coins (by position).\n";
 				cin >> cardPos;
 				//Confirm card to play
@@ -112,8 +116,7 @@ int main() {
 					cin.clear();
 					cin.ignore(1000000, '\n');
 				}
-			//Check that card is playable
-			} while (cardPos >= 1 && cardPos <= Game.getHandSize());
+			} 
 
 			//Queue to discard
 			Game.queueDiscard( cardPos - 1 );
@@ -172,7 +175,7 @@ int main() {
 				}
 			}//End game over condition
 		}//End advance age condition
-	}//End main dirver loop
+	}//End main driver loop
 
 	return 0;
 
